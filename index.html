@@ -1,856 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy 21st Birthday Govind 🎂</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;800&display=swap');
-
-body{
-    margin:0;
-    min-height:100vh;
-    background:#060713;
-    color:white;
-    font-family:'Plus Jakarta Sans',sans-serif;
-}
-
-.serif{
-    font-family:'Playfair Display',serif;
-}
-
-.glass{
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(245,158,11,.25);
-    backdrop-filter:blur(15px);
-}
-
-.hidden{
-    display:none!important;
-}
-
-/* DOOR */
-
-.door{
-    perspective:1000px;
-}
-
-.door-panel{
-    transition:transform .8s ease;
-    transform-origin:left center;
-}
-
-.door-open{
-    transform:rotateY(-110deg);
-}
-
-/* BALLOONS */
-
-.balloon{
-    transition:.3s;
-    animation:float 2s infinite ease-in-out;
-}
-
-.balloon:hover{
-    transform:scale(1.1);
-}
-
-.balloon.pop{
-    transform:scale(1.5);
-    opacity:0;
-    pointer-events:none;
-}
-
-@keyframes float{
-    50%{
-        transform:translateY(-10px);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 21st Birthday Govind!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-}
-
-/* SHAKE */
-
-.shake{
-    animation:shake .3s;
-}
-
-@keyframes shake{
-    25%{transform:translateX(-7px)}
-    50%{transform:translateX(7px)}
-    75%{transform:translateX(-5px)}
-}
-
-/* CANDLE */
-
-.candle{
-    width:24px;
-    height:45px;
-    background:linear-gradient(to right,#fbbf24,#f59e0b,#92400e);
-    border-radius:5px;
-    position:relative;
-    cursor:pointer;
-}
-
-.flame{
-    position:absolute;
-    width:14px;
-    height:20px;
-    top:-22px;
-    left:5px;
-    border-radius:50% 50% 50% 50%;
-    background:#fbbf24;
-    box-shadow:0 0 12px #f59e0b;
-    animation:flicker .4s infinite alternate;
-}
-
-@keyframes flicker{
-    from{transform:scale(1)}
-    to{transform:scale(1.15)}
-}
-
-.candle.blown .flame{
-    display:none;
-}
-
-.candle.blown{
-    opacity:.5;
-}
-
-/* CONFETTI */
-
-.confetti{
-    position:fixed;
-    width:8px;
-    height:12px;
-    top:-20px;
-    z-index:9999;
-    pointer-events:none;
-    animation:fall 3s linear forwards;
-}
-
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(720deg);
-        opacity:0;
+    body {
+      background: #060713;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      text-align: center;
     }
-}
-
-/* GIFT */
-
-.gift-bounce{
-    animation:bounce .6s;
-}
-
-@keyframes bounce{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.15)}
-}
-</style>
+    .btn-gold {
+      background: #f59e0b;
+      color: #000;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 24px;
+      font-size: 16px;
+      width: 100%;
+      max-width: 280px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .btn-gold:active {
+      transform: scale(0.96);
+    }
+    .door-box {
+      width: 150px;
+      height: 200px;
+      margin: 16px auto;
+      border: 2px solid #f59e0b;
+      border-radius: 80px 80px 8px 8px;
+      background: #3b1d0c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 340px;
+      margin: 12px auto;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .opt-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .opt-btn:active {
+      background: #f59e0b;
+      color: #000;
+    }
+    .balloons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .balloon-btn {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .photo-frame {
+      width: 100%;
+      height: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 10px 0;
+      background: #000;
+    }
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .candle-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .candle {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .flame {
+      width: 10px;
+      height: 14px;
+      background: #f59e0b;
+      border-radius: 50%;
+      margin-bottom: 2px;
+    }
+    .wick {
+      width: 6px;
+      height: 22px;
+      background: #cbd5e1;
+      border-radius: 2px;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- AUDIO -->
-<audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+  <!-- Audio -->
+  <audio id="audio-player" loop preload="none">
+    <source src="music.mp3" type="audio/mpeg" />
+    <source src="birthday.mp3" type="audio/mpeg" />
+  </audio>
 
-<!-- CONFETTI -->
-<div id="confetti"></div>
-
-<!-- TOP -->
-<div class="max-w-md mx-auto px-4 pt-4 flex justify-end">
-    <button id="soundBtn"
-        class="px-4 py-2 rounded-full border border-amber-500/30 bg-black/50 text-amber-300 text-xs">
-        🔈 Sound Off
+  <!-- Top bar -->
+  <header style="width: 100%; max-width: 340px; display: flex; justify-content: flex-end;">
+    <button type="button" onclick="startOrMuteAudio()" style="background: rgba(0,0,0,0.6); border: 1px solid #f59e0b; color: #fde047; padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer;">
+      <span id="audio-status">🔈 Sound Off</span>
     </button>
-</div>
+  </header>
 
+  <main style="width: 100%; max-width: 340px; margin: auto;">
 
-<main class="max-w-md mx-auto px-4 min-h-[85vh] flex items-center justify-center">
+    <!-- SCENE 1: DOOR -->
+    <div id="sc-1" style="display: block;">
+      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;">20 • 09 • 2026</p>
+      <h1 style="font-size: 26px; margin: 6px 0;">Hey Govind...</h1>
+      <p style="color: #94a3b8; font-size: 13px; margin-bottom: 12px;">Something crafted especially for your 21st milestone is waiting behind this door.</p>
 
-<!-- ========================================================= -->
-<!-- SCENE 1 -->
-<!-- ========================================================= -->
+      <div class="door-box" onclick="goToStep(2)">
+        <div style="border: 1px solid #fde047; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; color: #fde047; font-weight: bold; margin-bottom: 16px;">21</div>
+        <span style="font-size: 11px; color: #fde047; letter-spacing: 1px;">TAP DOOR</span>
+      </div>
 
-<section id="scene1" class="w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest mb-2">
-        20 • 09 • 2026
-    </p>
-
-    <h1 class="serif text-4xl font-bold mb-2">
-        Hey Govind...
-    </h1>
-
-    <p class="text-gray-400 text-xs mb-7">
-        Something special is waiting behind this door.
-    </p>
-
-    <div class="door w-48 h-60 mx-auto mb-7">
-
-        <div id="door"
-            class="door-panel w-full h-full rounded-t-full
-            bg-gradient-to-br from-amber-900 to-black
-            border-2 border-amber-500/50
-            flex flex-col items-center justify-center cursor-pointer">
-
-            <div class="w-12 h-12 rounded-full border border-amber-400
-                flex items-center justify-center text-amber-300 font-bold text-xl">
-                21
-            </div>
-
-            <div class="w-3 h-3 rounded-full bg-amber-400 mt-5"></div>
-
-            <p class="text-[10px] text-amber-300 tracking-widest mt-5">
-                TAP DOOR
-            </p>
-
-        </div>
-
-    </div>
-
-    <button id="openBtn"
-        class="w-full max-w-xs py-4 rounded-2xl
-        bg-amber-500 text-black font-bold">
+      <button type="button" class="btn-gold" onclick="goToStep(2)">
         OPEN YOUR SURPRISE 🎵
-    </button>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- SCENE 2 -->
-<!-- ========================================================= -->
-
-<section id="scene2" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest">
-        IDENTITY VERIFICATION
-    </p>
-
-    <h2 class="serif text-3xl font-bold mt-2">
-        Are you truly Govind?
-    </h2>
-
-    <p class="text-gray-400 text-xs mt-2 mb-6">
-        Solve this extremely difficult equation 😂
-    </p>
-
-    <div id="mathCard"
-        class="glass rounded-3xl p-6 max-w-xs mx-auto">
-
-        <div class="text-4xl font-bold text-amber-300 mb-6">
-            2 + 2 = ?
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-
-            <button class="mathBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-answer="2">2</button>
-
-            <button class="mathBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-answer="3">3</button>
-
-            <button class="mathBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-answer="4">4</button>
-
-            <button class="mathBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-answer="5">5</button>
-
-        </div>
-
-        <p id="mathMessage" class="text-amber-400 text-xs mt-4 h-5"></p>
-
+      </button>
     </div>
 
-</section>
-
-
-<!-- ========================================================= -->
-<!-- SCENE 3 -->
-<!-- ========================================================= -->
-
-<section id="scene3" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest">
-        WARM-UP MISSION
-    </p>
-
-    <h2 class="serif text-3xl font-bold mt-2">
-        Pop All 7 Balloons
-    </h2>
-
-    <p class="text-gray-400 text-xs mt-2 mb-5">
-        Tap every balloon.
-    </p>
-
-    <div class="glass rounded-3xl p-6 h-80
-        flex flex-wrap items-center justify-center gap-4">
-
-        <button class="balloon w-14 h-16 rounded-full bg-pink-500 font-bold"
-            data-message="Officially turning 21! 🎉">1</button>
-
-        <button class="balloon w-14 h-16 rounded-full bg-purple-500 font-bold"
-            data-message="Shaadi swag & royal pagdis 👑">2</button>
-
-        <button class="balloon w-14 h-16 rounded-full bg-blue-500 font-bold"
-            data-message="Brotherhood for life ❤️">3</button>
-
-        <button class="balloon w-14 h-16 rounded-full bg-green-500 font-bold"
-            data-message="Unstoppable ambition 🚀">4</button>
-
-        <button class="balloon w-14 h-16 rounded-full bg-yellow-500 font-bold text-black"
-            data-message="Unforgettable moments ✨">5</button>
-
-        <button class="balloon w-14 h-16 rounded-full bg-red-500 font-bold"
-            data-message="Endless reasons to smile 😎">6</button>
-
-        <button class="balloon w-14 h-16 rounded-full bg-cyan-500 font-bold"
-            data-message="Only the beginning... 🔥">7</button>
-
-    </div>
-
-    <p id="balloonMessage"
-        class="text-amber-300 text-xs mt-4 h-5"></p>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- SCENE 4 -->
-<!-- ========================================================= -->
-
-<section id="scene4" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest">
-        MEMORY LANE
-    </p>
-
-    <h2 class="serif text-3xl font-bold mt-2">
-        Moments Of Govind
-    </h2>
-
-    <p class="text-gray-400 text-xs mt-2 mb-4">
-        Your memories ❤️
-    </p>
-
-    <div class="glass rounded-3xl p-3">
-
-        <p id="photoTag"
-            class="text-amber-300 text-xs font-bold tracking-widest">
-            DEDICATION
-        </p>
-
-        <img id="photo"
-            src="1000285479.jpg"
-            class="w-full h-56 object-cover rounded-2xl mt-3">
-
-        <p id="photoCaption"
-            class="text-xs text-gray-200 mt-3 min-h-[40px]">
-            Focused, dedicated, and working hard towards big ambitions.
-        </p>
-
-        <div class="flex justify-between items-center mt-3">
-
-            <button id="prev"
-                class="text-amber-400 font-bold text-xs">
-                ◀ PREV
-            </button>
-
-            <span id="counter"
-                class="text-gray-500 text-xs">
-                01 / 06
-            </span>
-
-            <button id="next"
-                class="text-amber-400 font-bold text-xs">
-                NEXT ▶
-            </button>
-
+    <!-- SCENE 2: BRAIN TEST -->
+    <div id="sc-2" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Identity Verification</p>
+      <h2 style="font-size: 22px; margin: 4px 0 10px;">Are you truly Govind?</h2>
+      
+      <div class="card">
+        <p style="font-size: 30px; font-weight: bold; color: #fde047; margin: 8px 0;">2 + 2 = ?</p>
+        <div class="grid-2">
+          <button type="button" class="opt-btn" onclick="checkAnswer(2, this)">2</button>
+          <button type="button" class="opt-btn" onclick="checkAnswer(3, this)">3</button>
+          <button type="button" class="opt-btn" onclick="checkAnswer(4, this)">4</button>
+          <button type="button" class="opt-btn" onclick="checkAnswer(5, this)">5</button>
         </div>
-
+        <p id="math-reply" style="color: #f59e0b; font-size: 13px; margin-top: 14px; min-height: 20px;"></p>
+      </div>
     </div>
 
-    <button id="memoryDone"
-        class="mt-5 w-full py-3 rounded-xl bg-amber-500 text-black font-bold text-xs">
+    <!-- SCENE 3: POP BALLOONS -->
+    <div id="sc-3" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Warm-up Mission</p>
+      <h2 style="font-size: 22px; margin: 4px 0 4px;">Pop All 7 Balloons</h2>
+      <p style="color: #94a3b8; font-size: 12px;">Tap every balloon to unlock secret messages</p>
+
+      <div class="balloons">
+        <button type="button" class="balloon-btn" style="background:#ec4899;" onclick="popOne(this, 'Officially turning 21!')">1</button>
+        <button type="button" class="balloon-btn" style="background:#8b5cf6;" onclick="popOne(this, 'Shaadi swag & royal pagdis.')">2</button>
+        <button type="button" class="balloon-btn" style="background:#3b82f6;" onclick="popOne(this, 'Brotherhood for life.')">3</button>
+        <button type="button" class="balloon-btn" style="background:#10b981;" onclick="popOne(this, 'Unstoppable ambition.')">4</button>
+        <button type="button" class="balloon-btn" style="background:#f59e0b;" onclick="popOne(this, 'Unforgettable moments.')">5</button>
+        <button type="button" class="balloon-btn" style="background:#ef4444;" onclick="popOne(this, 'Endless reasons to smile.')">6</button>
+        <button type="button" class="balloon-btn" style="background:#06b6d4;" onclick="popOne(this, 'Only the beginning...')">7</button>
+      </div>
+      <p id="pop-reply" style="color: #fde047; font-size: 14px; font-weight: bold; min-height: 24px;"></p>
+    </div>
+
+    <!-- SCENE 4: MEMORY LANE -->
+    <div id="sc-4" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Memory Lane</p>
+      <h2 style="font-size: 22px; margin: 4px 0;">Moments Of Govind</h2>
+
+      <div class="card">
+        <p id="img-tag" style="color: #f59e0b; font-size: 12px; font-weight: bold; text-transform: uppercase;">Dedication</p>
+        <div class="photo-frame">
+          <img id="img-display" src="1000285479.jpg" alt="Memory[span_1](start_span)"[span_1](end_span) />
+        </div>
+        <p id="img-cap" style="font-size: 13px; color: #e2e8f0; min-height: 38px;">Focused, dedicated, and working hard towards big ambitions.</p>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <button type="button" onclick="nextPhoto(-1)" style="background:none; border:none; color:#f59e0b; font-weight:bold; font-size:14px; cursor:pointer;">◀ PREV</button>
+          <span id="img-num" style="font-size: 12px; color: #94a3b8; font-family: monospace;">01 / 06</span>
+          <button type="button" onclick="nextPhoto(1)" style="background:none; border:none; color:#f59e0b; font-weight:bold; font-size:14px; cursor:pointer;">NEXT ▶</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn-gold" onclick="goToStep(5)">
         ONE MORE CHALLENGE ⚡
-    </button>
-
-</section>
-
-
-<!-- ========================================================= -->
-<!-- SCENE 5 -->
-<!-- ========================================================= -->
-
-<section id="scene5" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest">
-        QUICK QUIZ
-    </p>
-
-    <h2 class="serif text-3xl font-bold mt-2">
-        The 21 Challenge
-    </h2>
-
-    <p class="text-gray-400 text-xs mt-2 mb-6">
-        How old is Govind turning today?
-    </p>
-
-    <div id="ageCard"
-        class="glass rounded-3xl p-6 max-w-xs mx-auto">
-
-        <div class="grid grid-cols-2 gap-3">
-
-            <button class="ageBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-age="18">18</button>
-
-            <button class="ageBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-age="19">19</button>
-
-            <button class="ageBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-age="20">20</button>
-
-            <button class="ageBtn py-4 rounded-xl bg-white/5 border border-gray-700"
-                data-age="21">21</button>
-
-        </div>
-
-        <p id="ageMessage"
-            class="text-amber-400 text-xs mt-4 h-5"></p>
-
+      </button>
     </div>
 
-</section>
+    <!-- SCENE 5: QUIZ -->
+    <div id="sc-5" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Quick Quiz</p>
+      <h2 style="font-size: 22px; margin: 4px 0 10px;">The 21 Challenge</h2>
 
-
-<!-- ========================================================= -->
-<!-- SCENE 6 -->
-<!-- ========================================================= -->
-
-<section id="scene6" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest">
-        MILESTONE TRADITION
-    </p>
-
-    <h2 class="serif text-3xl font-bold mt-2">
-        Make A Wish, Govind ✨
-    </h2>
-
-    <p class="text-gray-400 text-xs mt-2 mb-7">
-        Blow out all 21 candles.
-    </p>
-
-    <div class="glass rounded-3xl p-7">
-
-        <div id="candles"
-            class="grid grid-cols-7 gap-5 justify-items-center pt-6">
+      <div class="card">
+        <p style="font-size: 14px; color: #94a3b8; margin-bottom: 12px;">How old is Govind turning today?</p>
+        <div class="grid-2">
+          <button type="button" class="opt-btn" onclick="checkAge(18, this)">18</button>
+          <button type="button" class="opt-btn" onclick="checkAge(19, this)">19</button>
+          <button type="button" class="opt-btn" onclick="checkAge(20, this)">20</button>
+          <button type="button" class="opt-btn" onclick="checkAge(21, this)">21</button>
         </div>
-
-        <div class="mt-8 py-4 rounded-xl
-            bg-gradient-to-r from-amber-700 to-amber-900
-            border border-amber-500/40">
-            <b class="text-amber-200 text-xs tracking-widest">
-                TURNING 21
-            </b>
-        </div>
-
-        <p id="candleMessage"
-            class="text-amber-400 text-xs mt-4">
-            21 CANDLES LIT
-        </p>
-
+        <p id="age-reply" style="color: #f59e0b; font-size: 13px; margin-top: 14px; min-height: 20px;"></p>
+      </div>
     </div>
 
-</section>
+    <!-- SCENE 6: 21 CANDLES -->
+    <div id="sc-6" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Milestone Tradition</p>
+      <h2 style="font-size: 22px; margin: 4px 0;">Make A Wish, Govind ✨</h2>
+      <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Tap all 21 candles to blow them out</p>
 
+      <div class="card">
+        <div id="candles-box" class="candle-grid"></div>
+        <div style="background: #78350f; border: 2px solid #f59e0b; border-radius: 12px; padding: 12px; font-weight: bold; color: #fef08a;">
+          TURNING 21
+        </div>
+        <p id="candle-status" style="color: #f59e0b; font-size: 12px; font-family: monospace; margin-top: 10px; font-weight: bold;">21 CANDLES LIT</p>
+      </div>
+    </div>
 
-<!-- ========================================================= -->
-<!-- SCENE 7 -->
-<!-- ========================================================= -->
+    <!-- SCENE 7: LETTER -->
+    <div id="sc-7" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Personal Note</p>
+      <h2 style="font-size: 22px; margin: 4px 0 10px;">A Letter For You</h2>
 
-<section id="scene7" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest">
-        PERSONAL NOTE
-    </p>
-
-    <h2 class="serif text-3xl font-bold mt-2">
-        A Letter For You
-    </h2>
-
-    <p class="text-gray-400 text-xs mt-2 mb-6">
-        Tap the envelope.
-    </p>
-
-    <div class="glass rounded-3xl p-6 min-h-[400px]
-        flex items-center justify-center">
-
-        <div id="sealed">
-
-            <div class="text-7xl mb-5">
-                💌
-            </div>
-
-            <button id="openLetter"
-                class="px-7 py-3 rounded-full bg-amber-500 text-black font-bold text-xs">
-                OPEN LETTER ❤️
-            </button>
-
+      <div class="card">
+        <div id="envelope-closed" onclick="document.getElementById('envelope-closed').style.display='none'; document.getElementById('envelope-open').style.display='block';" style="cursor: pointer; padding: 16px 0;">
+          <div style="font-size: 48px; margin-bottom: 10px;">💌</div>
+          <button type="button" class="btn-gold" style="width: auto; padding: 10px 20px;">OPEN LETTER ❤️</button>
         </div>
 
-
-        <div id="letter"
-            class="hidden text-left">
-
-            <p class="text-amber-400 text-xs">
-                20 • 09 • 2026
-            </p>
-
-            <div class="text-sm leading-relaxed mt-4">
-
+        <div id="envelope-open" style="display: none; text-align: left;">
+          <p style="color: #f59e0b; font-size: 11px; font-family: monospace;">20 • 09 • 2026</p>
+          <p style="font-size: 13px; line-height: 1.6; color: #e2e8f0; margin-top: 8px; white-space: pre-line;">
 Dear Govind,
 
 Today isn't just another birthday. It marks the milestone arrival of your 21st year.
 
-From your relentless dedication and focus, to rocking traditional pagdis at family weddings, and sharing unforgettable laughs with your brothers—you bring genuine warmth, respect, and character everywhere you go.
+From your dedication and focus, to rocking traditional pagdis at family weddings, and sharing unforgettable laughs with your brothers—you bring genuine warmth, respect, and character everywhere.
 
 May your 21st year bring you:
-
 • Unstoppable success in all your goals
-
-• Countless celebrations with your brothers
-
-• Genuine prosperity, happiness, and peace of mind
+• Countless adventures with your brothers
+• Genuine prosperity, joy, and peace of mind
 
 Happy 21st Birthday, Govind! ❤️
-
-            </div>
-
-            <button id="finalBtn"
-                class="w-full mt-6 py-3 rounded-xl bg-amber-500 text-black font-bold text-xs">
-                ONE LAST SURPRISE 🎁
-            </button>
-
+          </p>
+          <button type="button" class="btn-gold" onclick="goToStep(8)">ONE LAST SURPRISE 🎁</button>
         </div>
-
+      </div>
     </div>
 
-</section>
+    <!-- SCENE 8: FINALE -->
+    <div id="sc-8" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 2px; font-weight: bold; text-transform: uppercase;">HAPPY 21st BIRTHDAY</p>
+      <h1 style="font-size: 38px; color: #facc15; margin: 4px 0;">GOVIND</h1>
+      <p style="color: #94a3b8; font-size: 12px; margin-bottom: 16px;">20 SEPTEMBER 2026</p>
 
+      <div class="card" onclick="document.getElementById('gift-lead').innerHTML='<span style=\'color:#fde047; font-weight:bold; display:block;\'>Govind’s 21st Year:</span>Endless success, big milestones, brotherly bonds, and boundless happiness!'; document.getElementById('gift-emoji').innerText='🌟';" style="cursor: pointer;">
+        <div id="gift-emoji" style="font-size: 46px; margin-bottom: 8px;">🎁</div>
+        <p id="gift-lead" style="font-size: 13px; color: #cbd5e1;">Tap the gift box to reveal your final blessing</p>
+      </div>
 
-<!-- ========================================================= -->
-<!-- SCENE 8 -->
-<!-- ========================================================= -->
-
-<section id="scene8" class="hidden w-full text-center">
-
-    <p class="text-amber-400 text-xs tracking-widest font-bold">
-        HAPPY 21st BIRTHDAY
-    </p>
-
-    <h1 class="serif text-6xl font-bold text-amber-400 mt-2">
-        GOVIND
-    </h1>
-
-    <p class="text-gray-400 text-xs tracking-widest mt-2 mb-7">
-        20 SEPTEMBER 2026
-    </p>
-
-    <div id="gift"
-        class="glass rounded-3xl p-8 cursor-pointer">
-
-        <div id="giftIcon"
-            class="text-7xl">
-            🎁
-        </div>
-
-        <p id="giftText"
-            class="text-gray-300 text-xs mt-4">
-            Tap the gift box to reveal your final blessing.
-        </p>
-
-    </div>
-
-    <button id="restart"
-        class="w-full mt-5 py-3 rounded-xl
-        bg-white/10 border border-gray-700 text-xs">
+      <button type="button" onclick="location.reload()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 14px; padding: 12px; font-size: 13px; margin-top: 16px; width: 100%; max-width: 280px; cursor: pointer;">
         PLAY EXPERIENCE AGAIN ↺
-    </button>
+      </button>
+    </div>
 
-</section>
+  </main>
 
-</main>
+  <footer style="color: #64748b; font-size: 10px; letter-spacing: 1px; padding-top: 8px;">
+    GOVIND • 21st BIRTHDAY • 20 SEPTEMBER 2026
+  </footer>
 
+  <script>
+    // Direct scene switcher
+    function goToStep(stepNumber) {
+      for (var s = 1; s <= 8; s++) {
+        var el = document.getElementById('sc-' + s);
+        if (el) el.style.display = 'none';
+      }
+      var target = document.getElementById('sc-' + stepNumber);
+      if (target) target.style.display = 'block';
+      
+      // Auto-trigger audio attempt on any navigation
+      try {
+        var audio = document.getElementById('audio-player');
+        if (audio && audio.paused) {
+          audio.play().then(function() {
+            document.getElementById('audio-status').innerText = "🔊 Sound On";
+          }).catch(function() {});
+        }
+      } catch(e) {}
+    }
 
-<footer class="text-center text-[10px] text-gray-600 pb-3">
-GOVIND • 21st BIRTHDAY • 20 SEPTEMBER 2026
-</footer>
+    // Audio button toggle
+    function startOrMuteAudio() {
+      var audio = document.getElementById('audio-player');
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play().then(function() {
+          document.getElementById('audio-status').innerText = "🔊 Sound On";
+        }).catch(function() {});
+      } else {
+        audio.pause();
+        document.getElementById('audio-status').innerText = "🔈 Sound Off";
+      }
+    }
 
+    // Scene 2: Math
+    function checkAnswer(val, btn) {
+      var reply = document.getElementById('math-reply');
+      if (val === 4) {
+        btn.style.background = "#10b981";
+        reply.innerText = "Correct! 🎈";
+        setTimeout(function() { goToStep(3); }, 500);
+      } else {
+        reply.innerText = "Are you sure? 😂 Try again!";
+      }
+    }
 
-<script>
+    // Scene 3: Balloons
+    var poppedTotal = 0;
+    function popOne(btn, msg) {
+      if (btn.style.opacity === '0') return;
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+      poppedTotal++;
+      document.getElementById('pop-reply').innerText = '"' + msg + '"';
+      if (poppedTotal >= 7) {
+        document.getElementById('pop-reply').innerText = "BALLOON MISSION COMPLETE 🎈";
+        setTimeout(function() { goToStep(4); }, 600);
+      }
+    }
 
-document.addEventListener("DOMContentLoaded", function(){
-
-    console.log("Birthday website JavaScript loaded successfully.");
-
-    /* ========================================================
-       HELPERS
-    ======================================================== */
-
-    const scenes = [
-        "scene1",
-        "scene2",
-        "scene3",
-        "scene4",
-        "scene5",
-        "scene6",
-        "scene7",
-        "scene8"
+    // Scene 4: Photos
+    var album = [
+      { img: "1000285479.jpg", tag: "Dedication", cap: "Focused, dedicated, and working hard towards big ambitions." },
+      { img: "1000285596.jpg", tag: "Shaadi Swag", cap: "Pagdi, garlands, & royal traditions. Celebrating in true brotherly style." },
+      { img: "1000285478.jpg", tag: "Golden Sunset", cap: "Golden hour brotherhood. Standing together towards endless horizons." },
+      { img: "1000285476.jpg", tag: "Festival Of Colors", cap: "Holi colors & endless laughter. Unbreakable bonds that last forever." },
+      { img: "1000285477.jpg", tag: "Desi Roots", cap: "Simple moments and calm breezes in the countryside." },
+      { img: "1000285590.png", tag: "Brothers For Life", cap: "Street smiles, big dreams, and unstoppable 21st energy." }
     ];
+    var pIdx = 0;
 
-    function showScene(number){
-
-        scenes.forEach(id => {
-            document.getElementById(id).classList.add("hidden");
-        });
-
-        document.getElementById("scene" + number)
-            .classList.remove("hidden");
-
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
+    function nextPhoto(step) {
+      pIdx = (pIdx + step + 6) % 6;
+      var cur = album[pIdx];
+      document.getElementById('img-tag').innerText = cur.tag;
+      document.getElementById('img-display').src = cur.img;
+      document.getElementById('img-cap').innerText = cur.cap;
+      document.getElementById('img-num').innerText = "0" + (pIdx + 1) + " / 06";
     }
 
-
-    function confetti(amount = 40){
-
-        const container =
-            document.getElementById("confetti");
-
-        const colors = [
-            "#f59e0b",
-            "#fbbf24",
-            "#ef4444",
-            "#22c55e",
-            "#3b82f6",
-            "#a855f7",
-            "#ffffff"
-        ];
-
-        for(let i=0;i<amount;i++){
-
-            const piece =
-                document.createElement("div");
-
-            piece.className = "confetti";
-
-            piece.style.left =
-                Math.random()*100 + "%";
-
-            piece.style.background =
-                colors[Math.floor(Math.random()*colors.length)];
-
-            piece.style.animationDuration =
-                (2 + Math.random()*2) + "s";
-
-            container.appendChild(piece);
-
-            setTimeout(() => {
-                piece.remove();
-            },5000);
-        }
+    // Scene 5: Quiz
+    function checkAge(age, btn) {
+      var reply = document.getElementById('age-reply');
+      if (age === 21) {
+        btn.style.background = "#f59e0b";
+        btn.style.color = "#000";
+        reply.innerText = "YES! Welcome to 21 ✨";
+        setTimeout(function() { goToStep(6); }, 500);
+      } else {
+        reply.innerText = "Nice try 😏 Try again!";
+      }
     }
 
-
-    /* ========================================================
-       SOUND
-    ======================================================== */
-
-    const soundBtn =
-        document.getElementById("soundBtn");
-
-    const music =
-        document.getElementById("music");
-
-    let soundOn = false;
-
-    soundBtn.addEventListener("click", function(){
-
-        if(soundOn){
-
-            music.pause();
-
-            soundOn = false;
-
-            soundBtn.innerText =
-                "🔈 Sound Off";
-
-        }else{
-
-            music.volume = .6;
-
-            music.play().catch(error => {
-                console.log("Audio blocked:",error);
-            });
-
-            soundOn = true;
-
-            soundBtn.innerText =
-                "🔊 Sound On";
-        }
-
-    });
-
-
-    /* ========================================================
-       SCENE 1 — DOOR
-    ======================================================== */
-
-    let doorUsed = false;
-
-    function openDoor(){
-
-        if(doorUsed) return;
-
-        doorUsed = true;
-
-        /* Try music automatically after user interaction */
-
-        music.volume = .6;
-
-        music.play().catch(()=>{});
-
-        soundOn = true;
-
-        soundBtn.innerText =
-            "🔊 Sound On";
-
-        document
-            .getElementById("door")
-            .classList.add("door-open");
-
-        setTimeout(() => {
-            showScene(2);
-        },800);
+    // Scene 6: Build Candles
+    var candlesOut = 0;
+    var cHolder = document.getElementById('candles-box');
+    if (cHolder) {
+      for (var i = 0; i < 21; i++) {
+        var c = document.createElement('button');
+        c.type = 'button';
+        c.className = 'candle';
+        c.innerHTML = '<div class="flame"></div><div class="wick"></div>';
+        c.onclick = function() {
+          var flame = this.querySelector('.flame');
+          if (flame && flame.style.opacity !== '0') {
+            flame.style.opacity = '0';
+            candlesOut++;
+            var left = 21 - candlesOut;
+            document.getElementById('candle-status').innerText = left > 0 ? left + " CANDLES LEFT" : "ALL WISHES SEALED ✨";
+            if (candlesOut >= 21) {
+              setTimeout(function() { goToStep(7); }, 600);
+            }
+          }
+        };
+        cHolder.appendChild(c);
+      }
     }
-
-    document
-        .getElementById("door")
-        .addEventListener("click",openDoor);
-
-    document
-        .getElementById("openBtn")
-        .addEventListener("click",openDoor);
-
-
-    /* ========================================================
-       SCENE 2 — MATH
-    ======================================================== */
-
-    document
-        .querySelectorAll(".mathBtn")
-        .forEach(button => {
-
-            button.addEventListener("click",function(){
-
-                const answer =
-                    this.dataset.answer;
-
-                const message =
-                    document.getElementById("mathMessage");
-
-                if(answer === "4"){
-
-                    this.classList.add(
-                        "bg-green-500/40"
-                    );
-
-                    message.innerText =
-                        "Correct! Birthday brain verified! 🎉";
-
-                    setTimeout(() => {
-                        showScene(3);
-                    },800);
-
-                }else{
-
-                    message.innerText =
-                        "Wrong 😂 Try again!";
-
-                    const card =
-                        document.getElementById("mathCard");
-
-                    card.classList.remove("shake");
-
-                    void card.offsetWidth;
-
-                    card.classList.add("shake");
-                }
-
-            });
-
-        });
-
-
-    /* ========================================================
-       SCENE 3 — BALLOONS
-    ======================================================== */
-
-    let balloonsPopped = 0;
-
-    document
-        .querySelectorAll(".balloon")
-        .forEach(balloon => {
-
-            balloon.addEventListener("click",function(){
-
-                if(this.classList.contains("pop")) return;
-
-                this.classList.add("pop");
-
-                balloonsPopped++;
-
-                document
-                    .getElementById("balloonMessage")
-                    .innerText =
-                    this.dataset.message;
-
-                confetti(8);
-
-                if(balloonsPopped === 7){
-
-                    document
-                        .getElementById("balloonMessage")
-                        .innerText =
-                        "ALL 7 BALLOONS POPPED! 🎈";
-
-                    confetti(40);
-
-                    setTimeout(() => {
-                        showScene(4);
-                    },1000);
-                }
-
-            });
-
-        });
-
-
-    /* ========================================================
-       SCENE 4 — PHOTOS
-    ======================================================== */
-
-    const memories = [
-
-        {
-            image:"1000285479.jpg",
-            tag:"DEDICATION",
-            caption:"Focused, dedicated, and working hard towards big ambitions."
-        }
+  </script>
+</body>
+</html>
