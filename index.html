@@ -2,324 +2,280 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Happy 21st Birthday Govind! 🎂</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 21st Birthday Govind!</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,700&display=swap');
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
-
     body {
-      background: radial-gradient(circle at 50% 20%, #15162c 0%, #060713 100%);
+      background: #060713;
       color: #f8fafc;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 12px;
+      padding: 16px;
       text-align: center;
-      overflow-x: hidden;
     }
-
-    .font-serif-title {
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* Vibrant Gradient Text */
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #fff3b0 0%, #ffd700 50%, #f59e0b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .vibrant-pink-text {
-      background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 50%, #ec4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* Glassmorphism Cards */
-    .premium-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      border-radius: 28px;
-      padding: 22px 18px;
-      width: 100%;
-      max-width: 380px;
-      box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(245, 158, 11, 0.12);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-
-    /* Action Buttons */
-    .btn-gold-glow {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-      color: #060713;
+    .btn-gold {
+      background: #f59e0b;
+      color: #000;
       font-weight: 800;
       border: none;
-      border-radius: 20px;
+      border-radius: 14px;
       padding: 16px 24px;
-      font-size: 15px;
-      letter-spacing: 0.5px;
+      font-size: 16px;
       width: 100%;
-      max-width: 320px;
+      max-width: 280px;
       cursor: pointer;
       margin-top: 16px;
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .btn-gold-glow:active {
+    .btn-gold:active {
       transform: scale(0.96);
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
     }
-
-    /* 3D Mystery Door */
     .door-box {
-      width: 165px;
-      height: 230px;
+      width: 150px;
+      height: 200px;
       margin: 16px auto;
-      border: 2px solid rgba(245, 158, 11, 0.5);
-      border-radius: 90px 90px 10px 10px;
-      background: radial-gradient(circle, #3b1d0c 0%, #150904 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 80px 80px 8px 8px;
+      background: #3b1d0c;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 30px rgba(245, 158, 11, 0.25);
     }
-    .door-inner {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(145deg, #78350f, #291004);
-      border-radius: 86px 86px 6px 6px;
-      border: 1px solid rgba(245, 158, 11, 0.6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transform-origin: left center;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .door-inner.open {
-      transform: rotateY(-112deg);
-    }
-
-    /* Floating Balloons */
-    @keyframes floatBalloon {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(2deg); }
-    }
-    .floating-balloon {
-      animation: floatBalloon 3s infinite ease-in-out;
-    }
-
-    /* Candle Flame */
-    @keyframes flameDance {
-      0%, 100% { transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 6px #f59e0b); }
-      50% { transform: scale(1.2) rotate(2deg); filter: drop-shadow(0 0 12px #fbbf24); }
-    }
-    .flame-lit {
-      animation: flameDance 0.5s infinite alternate ease-in-out;
-    }
-
-    /* Large Photo Container */
-    .photo-display-box {
-      width: 100%;
-      height: 340px; /* Big immersive photo frame */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 20px;
-      overflow: hidden;
-      margin: 12px 0;
-      background: #020205;
-      border: 1.5px solid rgba(245, 158, 11, 0.3);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      width: 100%;
+      max-width: 340px;
+      margin: 12px auto;
     }
-    .photo-display-box img {
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .opt-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .opt-btn:active {
+      background: #f59e0b;
+      color: #000;
+    }
+    .balloons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .balloon-btn {
+      width: 50px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .photo-frame {
+      width: 100%;
+      height: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 10px 0;
+      background: #000;
+    }
+    .photo-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
-      transition: opacity 0.3s ease;
     }
-
-    /* Screen Visibility */
-    .screen-block {
-      width: 100%;
-      max-width: 380px;
-      display: none;
+    .candle-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .candle {
+      background: none;
+      border: none;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      margin: auto;
+      cursor: pointer;
     }
-    .screen-block.active {
-      display: flex !important;
+    .flame {
+      width: 10px;
+      height: 14px;
+      background: #f59e0b;
+      border-radius: 50%;
+      margin-bottom: 2px;
+    }
+    .wick {
+      width: 6px;
+      height: 22px;
+      background: #cbd5e1;
+      border-radius: 2px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Music Audio -->
-  <audio id="bg-audio-track" loop preload="none">
+  <!-- Audio -->
+  <audio id="audio-player" loop preload="none">
     <source src="music.mp3" type="audio/mpeg" />
     <source src="birthday.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Top Status Bar -->
-  <header style="width: 100%; max-width: 380px; display: flex; justify-content: flex-end; padding: 4px 6px;">
-    <button type="button" onclick="toggleAudioState()" style="background: rgba(0,0,0,0.6); border: 1px solid rgba(245,158,11,0.5); color: #fde047; padding: 8px 18px; border-radius: 24px; font-size: 13px; font-weight: 700; box-shadow: 0 0 12px rgba(245,158,11,0.2); cursor: pointer;">
-      <span id="sound-indicator">🔈 Sound Off</span>
+  <!-- Top bar -->
+  <header style="width: 100%; max-width: 340px; display: flex; justify-content: flex-end;">
+    <button type="button" onclick="startOrMuteAudio()" style="background: rgba(0,0,0,0.6); border: 1px solid #f59e0b; color: #fde047; padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer;">
+      <span id="audio-status">🔈 Sound Off</span>
     </button>
   </header>
 
-  <!-- Dynamic Screens -->
-  <main style="width: 100%; max-width: 380px; margin: auto;">
+  <main style="width: 100%; max-width: 340px; margin: auto;">
 
-    <!-- SCENE 1: THE SECRET DOOR -->
-    <div id="scene-1" class="screen-block active">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 3px; font-weight: 800; text-transform: uppercase;">20 • 09 • 2026</p>
-      <h1 class="font-serif-title text-3xl font-extrabold gold-gradient-text" style="margin: 8px 0 4px;">Hey Govind...</h1>
-      <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 8px; line-height: 1.5;">A special interactive 21st celebration adventure awaits behind this door.</p>
+    <!-- SCENE 1: DOOR -->
+    <div id="sc-1" style="display: block;">
+      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;">20 • 09 • 2026</p>
+      <h1 style="font-size: 26px; margin: 6px 0;">Hey Govind...</h1>
+      <p style="color: #94a3b8; font-size: 13px; margin-bottom: 12px;">Something crafted especially for your 21st milestone is waiting behind this door.</p>
 
-      <div class="door-box" onclick="handleDoorOpen()">
-        <div id="door-element" class="door-inner">
-          <div style="border: 2px solid #fde047; border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; color: #fde047; font-size: 16px; font-weight: 900; margin-bottom: 22px; box-shadow: 0 0 15px rgba(245,158,11,0.4);">21</div>
-          <div style="width: 12px; height: 12px; background: #fbbf24; border-radius: 50%; margin-left: 64px; box-shadow: 0 0 10px #f59e0b;"></div>
-          <span style="font-size: 11px; color: #fde047; font-weight: 800; letter-spacing: 1.5px; margin-top: 24px;">TAP TO OPEN</span>
-        </div>
+      <div class="door-box" onclick="goToStep(2)">
+        <div style="border: 1px solid #fde047; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; color: #fde047; font-weight: bold; margin-bottom: 16px;">21</div>
+        <span style="font-size: 11px; color: #fde047; letter-spacing: 1px;">TAP DOOR</span>
       </div>
 
-      <button type="button" class="btn-gold-glow" onclick="handleDoorOpen()">
+      <button type="button" class="btn-gold" onclick="goToStep(2)">
         OPEN YOUR SURPRISE 🎵
       </button>
     </div>
 
     <!-- SCENE 2: BRAIN TEST -->
-    <div id="scene-2" class="screen-block">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase;">Identity Verification</p>
-      <h2 class="font-serif-title text-2xl font-bold text-slate-100" style="margin: 4px 0 14px;">Are you truly Govind?</h2>
+    <div id="sc-2" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Identity Verification</p>
+      <h2 style="font-size: 22px; margin: 4px 0 10px;">Are you truly Govind?</h2>
       
-      <div class="premium-card">
-        <p style="color: #94a3b8; font-size: 13px;">Solve this high-level mathematical test:</p>
-        <p class="font-serif-title gold-gradient-text" style="font-size: 38px; font-weight: 900; margin: 12px 0;">2 + 2 = ?</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
-          <button type="button" onclick="handleMath(2, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">2</button>
-          <button type="button" onclick="handleMath(3, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">3</button>
-          <button type="button" onclick="handleMath(4, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">4</button>
-          <button type="button" onclick="handleMath(5, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">5</button>
+      <div class="card">
+        <p style="font-size: 30px; font-weight: bold; color: #fde047; margin: 8px 0;">2 + 2 = ?</p>
+        <div class="grid-2">
+          <button type="button" class="opt-btn" onclick="checkAnswer(2, this)">2</button>
+          <button type="button" class="opt-btn" onclick="checkAnswer(3, this)">3</button>
+          <button type="button" class="opt-btn" onclick="checkAnswer(4, this)">4</button>
+          <button type="button" class="opt-btn" onclick="checkAnswer(5, this)">5</button>
         </div>
-        <p id="math-status-msg" style="color: #f59e0b; font-size: 13px; font-weight: 700; margin-top: 14px; min-height: 20px;"></p>
+        <p id="math-reply" style="color: #f59e0b; font-size: 13px; margin-top: 14px; min-height: 20px;"></p>
       </div>
     </div>
 
     <!-- SCENE 3: POP BALLOONS -->
-    <div id="scene-3" class="screen-block">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase;">Warm-up Mission</p>
-      <h2 class="font-serif-title text-2xl font-bold text-slate-100" style="margin: 4px 0 6px;">Pop All 7 Balloons</h2>
-      <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 12px;">Tap each balloon to release secret birthday blessings</p>
+    <div id="sc-3" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Warm-up Mission</p>
+      <h2 style="font-size: 22px; margin: 4px 0 4px;">Pop All 7 Balloons</h2>
+      <p style="color: #94a3b8; font-size: 12px;">Tap every balloon to unlock secret messages</p>
 
-      <div class="premium-card" style="padding: 16px 12px;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 10px 0;">
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #ec4899); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(236,72,153,0.4);" onclick="handleBalloonPop(this, 'Officially turning 21!')">1</button>
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #8b5cf6); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(139,92,246,0.4); animation-delay: 0.3s;" onclick="handleBalloonPop(this, 'Shaadi swag & royal pagdis.')">2</button>
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #3b82f6); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(59,130,246,0.4); animation-delay: 0.6s;" onclick="handleBalloonPop(this, 'Brotherhood for life.')">3</button>
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #10b981); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(16,185,129,0.4); animation-delay: 0.9s;" onclick="handleBalloonPop(this, 'Unstoppable ambition.')">4</button>
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #f59e0b); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(245,158,11,0.4); animation-delay: 1.2s;" onclick="handleBalloonPop(this, 'Unforgettable moments.')">5</button>
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #ef4444); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(239,68,68,0.4); animation-delay: 1.5s;" onclick="handleBalloonPop(this, 'Endless reasons to smile.')">6</button>
-          <button type="button" class="floating-balloon" style="width: 58px; height: 70px; border-radius: 50%; border: none; background: radial-gradient(circle at 35% 30%, #fff, #06b6d4); color: white; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 15px rgba(6,182,212,0.4); animation-delay: 1.8s;" onclick="handleBalloonPop(this, 'Only the beginning...')">7</button>
-        </div>
-        <p id="balloon-message-box" class="gold-gradient-text" style="font-size: 15px; font-weight: 800; min-height: 24px; margin-top: 10px;"></p>
+      <div class="balloons">
+        <button type="button" class="balloon-btn" style="background:#ec4899;" onclick="popOne(this, 'Officially turning 21!')">1</button>
+        <button type="button" class="balloon-btn" style="background:#8b5cf6;" onclick="popOne(this, 'Shaadi swag & royal pagdis.')">2</button>
+        <button type="button" class="balloon-btn" style="background:#3b82f6;" onclick="popOne(this, 'Brotherhood for life.')">3</button>
+        <button type="button" class="balloon-btn" style="background:#10b981;" onclick="popOne(this, 'Unstoppable ambition.')">4</button>
+        <button type="button" class="balloon-btn" style="background:#f59e0b;" onclick="popOne(this, 'Unforgettable moments.')">5</button>
+        <button type="button" class="balloon-btn" style="background:#ef4444;" onclick="popOne(this, 'Endless reasons to smile.')">6</button>
+        <button type="button" class="balloon-btn" style="background:#06b6d4;" onclick="popOne(this, 'Only the beginning...')">7</button>
       </div>
+      <p id="pop-reply" style="color: #fde047; font-size: 14px; font-weight: bold; min-height: 24px;"></p>
     </div>
 
-    <!-- SCENE 4: MEMORY LANE (ENLARGED PHOTOS) -->
-    <div id="scene-4" class="screen-block">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">Memory Lane</p>
-      <h2 class="font-serif-title text-2xl font-bold text-slate-100" style="margin: 4px 0;">Moments Of Govind</h2>
+    <!-- SCENE 4: MEMORY LANE -->
+    <div id="sc-4" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Memory Lane</p>
+      <h2 style="font-size: 22px; margin: 4px 0;">Moments Of Govind</h2>
 
-      <div class="premium-card">
-        <!-- Vibrant Category Badge -->
-        <span id="photo-tag-label" style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.5); color: #fde047; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Dedication</span>
-
-        <!-- Big Photo Frame -->
-        <div class="photo-display-box">
-          <img id="main-photo-view" src="1000285479.jpg" alt="Govind Memory[span_7](start_span)"[span_7](end_span) />
+      <div class="card">
+        <p id="img-tag" style="color: #f59e0b; font-size: 12px; font-weight: bold; text-transform: uppercase;">Dedication</p>
+        <div class="photo-frame">
+          <img id="img-display" src="1000285479.jpg" alt="Memory[span_1](start_span)"[span_1](end_span) />
         </div>
-
-        <p id="photo-caption-text" style="font-size: 14px; color: #f1f5f9; min-height: 40px; font-weight: 600; line-height: 1.4; padding: 0 4px;">
-          Focused, dedicated, and working hard towards big ambitions.
-        </p>
-
-        <!-- Big Navigation Buttons -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding: 0 8px;">
-          <button type="button" onclick="navigatePhoto(-1)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(245,158,11,0.4); color: #fde047; padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer;">◀ PREV</button>
-          <span id="photo-index-label" style="font-size: 13px; color: #cbd5e1; font-family: monospace; font-weight: 700;">01 / 06</span>
-          <button type="button" onclick="navigatePhoto(1)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(245,158,11,0.4); color: #fde047; padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 13px; cursor: pointer;">NEXT ▶</button>
+        <p id="img-cap" style="font-size: 13px; color: #e2e8f0; min-height: 38px;">Focused, dedicated, and working hard towards big ambitions.</p>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <button type="button" onclick="nextPhoto(-1)" style="background:none; border:none; color:#f59e0b; font-weight:bold; font-size:14px; cursor:pointer;">◀ PREV</button>
+          <span id="img-num" style="font-size: 12px; color: #94a3b8; font-family: monospace;">01 / 06</span>
+          <button type="button" onclick="nextPhoto(1)" style="background:none; border:none; color:#f59e0b; font-weight:bold; font-size:14px; cursor:pointer;">NEXT ▶</button>
         </div>
       </div>
 
-      <button type="button" class="btn-gold-glow" onclick="goToScreen(5)">
+      <button type="button" class="btn-gold" onclick="goToStep(5)">
         ONE MORE CHALLENGE ⚡
       </button>
     </div>
 
-    <!-- SCENE 5: THE 21 QUIZ -->
-    <div id="scene-5" class="screen-block">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase;">Quick Quiz</p>
-      <h2 class="font-serif-title text-2xl font-bold text-slate-100" style="margin: 4px 0 14px;">The 21 Challenge</h2>
+    <!-- SCENE 5: QUIZ -->
+    <div id="sc-5" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Quick Quiz</p>
+      <h2 style="font-size: 22px; margin: 4px 0 10px;">The 21 Challenge</h2>
 
-      <div class="premium-card">
-        <p style="font-size: 14px; color: #cbd5e1; font-weight: 600; margin-bottom: 8px;">How old is Govind turning today?</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
-          <button type="button" onclick="handleAgeQuiz(18, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">18</button>
-          <button type="button" onclick="handleAgeQuiz(19, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">19</button>
-          <button type="button" onclick="handleAgeQuiz(20, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">20</button>
-          <button type="button" onclick="handleAgeQuiz(21, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">21</button>
+      <div class="card">
+        <p style="font-size: 14px; color: #94a3b8; margin-bottom: 12px;">How old is Govind turning today?</p>
+        <div class="grid-2">
+          <button type="button" class="opt-btn" onclick="checkAge(18, this)">18</button>
+          <button type="button" class="opt-btn" onclick="checkAge(19, this)">19</button>
+          <button type="button" class="opt-btn" onclick="checkAge(20, this)">20</button>
+          <button type="button" class="opt-btn" onclick="checkAge(21, this)">21</button>
         </div>
-        <p id="age-quiz-status" style="color: #f59e0b; font-size: 14px; font-weight: 800; margin-top: 14px; min-height: 20px;"></p>
+        <p id="age-reply" style="color: #f59e0b; font-size: 13px; margin-top: 14px; min-height: 20px;"></p>
       </div>
     </div>
 
     <!-- SCENE 6: 21 CANDLES -->
-    <div id="scene-6" class="screen-block">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase;">Milestone Tradition</p>
-      <h2 class="font-serif-title text-2xl font-bold text-slate-100" style="margin: 4px 0 2px;">Make A Wish, Govind ✨</h2>
-      <p style="color: #cbd5e1; font-size: 12px; margin-bottom: 12px;">Tap all 21 candles to blow them out</p>
+    <div id="sc-6" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Milestone Tradition</p>
+      <h2 style="font-size: 22px; margin: 4px 0;">Make A Wish, Govind ✨</h2>
+      <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">Tap all 21 candles to blow them out</p>
 
-      <div class="premium-card">
-        <div id="candles-container" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin: 12px 0;"></div>
-        
-        <div style="background: linear-gradient(135deg, #b45309, #78350f); border: 2px solid rgba(245,158,11,0.5); border-radius: 14px; padding: 14px; font-weight: 900; color: #fef08a; letter-spacing: 1px; box-shadow: inset 0 0 15px rgba(0,0,0,0.5);">
+      <div class="card">
+        <div id="candles-box" class="candle-grid"></div>
+        <div style="background: #78350f; border: 2px solid #f59e0b; border-radius: 12px; padding: 12px; font-weight: bold; color: #fef08a;">
           TURNING 21
         </div>
-        <p id="candle-live-counter" style="color: #f59e0b; font-size: 13px; font-family: monospace; margin-top: 12px; font-weight: 800;">21 CANDLES LIT</p>
+        <p id="candle-status" style="color: #f59e0b; font-size: 12px; font-family: monospace; margin-top: 10px; font-weight: bold;">21 CANDLES LIT</p>
       </div>
     </div>
 
     <!-- SCENE 7: LETTER -->
-    <div id="scene-7" class="screen-block">
-      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; text-transform: uppercase;">Personal Note</p>
-      <h2 class="font-serif-title text-2xl font-bold text-slate-100" style="margin: 4px 0 12px;">A Letter For You</h2>
+    <div id="sc-7" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase;">Personal Note</p>
+      <h2 style="font-size: 22px; margin: 4px 0 10px;">A Letter For You</h2>
 
-      <div class="premium-card">
-        <div id="envelope-sealed" onclick="handleOpenLetter()" style="cursor: pointer; padding: 20px 0;">
-          <div style="font-size: 58px; margin-bottom: 12px; filter: drop-shadow(0 0 15px rgba(245,158,11,0.3));">💌</div>
-          <button type="button" class="btn-gold-glow" style="width: auto; padding: 12px 28px; margin-top: 0;">OPEN LETTER ❤️</button>
+      <div class="card">
+        <div id="envelope-closed" onclick="document.getElementById('envelope-closed').style.display='none'; document.getElementById('envelope-open').style.display='block';" style="cursor: pointer; padding: 16px 0;">
+          <div style="font-size: 48px; margin-bottom: 10px;">💌</div>
+          <button type="button" class="btn-gold" style="width: auto; padding: 10px 20px;">OPEN LETTER ❤️</button>
         </div>
 
-        <div id="envelope-content" style="display: none; text-align: left;">
-          <p style="color: #f59e0b; font-size: 12px; font-family: monospace; font-weight: 700;">20 • 09 • 2026</p>
-          <p style="font-size: 13.5px; line-height: 1.7; color: #f1f5f9; margin-top: 10px; font-weight: 500; white-space: pre-line;">
+        <div id="envelope-open" style="display: none; text-align: left;">
+          <p style="color: #f59e0b; font-size: 11px; font-family: monospace;">20 • 09 • 2026</p>
+          <p style="font-size: 13px; line-height: 1.6; color: #e2e8f0; margin-top: 8px; white-space: pre-line;">
 Dear Govind,
 
 Today isn't just another birthday. It marks the milestone arrival of your 21st year.
@@ -333,16 +289,151 @@ May your 21st year bring you:
 
 Happy 21st Birthday, Govind! ❤️
           </p>
-          <button type="button" class="btn-gold-glow" onclick="goToScreen(8)">ONE LAST SURPRISE 🎁</button>
+          <button type="button" class="btn-gold" onclick="goToStep(8)">ONE LAST SURPRISE 🎁</button>
         </div>
       </div>
     </div>
 
-    <!-- SCENE 8: GRAND FINALE -->
-    <div id="scene-8" class="screen-block">
-      <p style="color: #f59e0b; font-size: 13px; letter-spacing: 2.5px; font-weight: 900; text-transform: uppercase;">HAPPY 21st BIRTHDAY</p>
-      <h1 class="font-serif-title gold-gradient-text" style="font-size: 46px; font-weight: 900; margin: 4px 0;">GOVIND</h1>
-      <p style="color: #cbd5e1; font-size: 13px; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 16px;">20 SEPTEMBER 2026</p>
+    <!-- SCENE 8: FINALE -->
+    <div id="sc-8" style="display: none;">
+      <p style="color: #f59e0b; font-size: 12px; letter-spacing: 2px; font-weight: bold; text-transform: uppercase;">HAPPY 21st BIRTHDAY</p>
+      <h1 style="font-size: 38px; color: #facc15; margin: 4px 0;">GOVIND</h1>
+      <p style="color: #94a3b8; font-size: 12px; margin-bottom: 16px;">20 SEPTEMBER 2026</p>
 
-      <div class="premium-card" onclick="handleGiftBoxTap()" style="cursor: pointer;">
-        <div id="gift-icon" style="font-siz
+      <div class="card" onclick="document.getElementById('gift-lead').innerHTML='<span style=\'color:#fde047; font-weight:bold; display:block;\'>Govind’s 21st Year:</span>Endless success, big milestones, brotherly bonds, and boundless happiness!'; document.getElementById('gift-emoji').innerText='🌟';" style="cursor: pointer;">
+        <div id="gift-emoji" style="font-size: 46px; margin-bottom: 8px;">🎁</div>
+        <p id="gift-lead" style="font-size: 13px; color: #cbd5e1;">Tap the gift box to reveal your final blessing</p>
+      </div>
+
+      <button type="button" onclick="location.reload()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 14px; padding: 12px; font-size: 13px; margin-top: 16px; width: 100%; max-width: 280px; cursor: pointer;">
+        PLAY EXPERIENCE AGAIN ↺
+      </button>
+    </div>
+
+  </main>
+
+  <footer style="color: #64748b; font-size: 10px; letter-spacing: 1px; padding-top: 8px;">
+    GOVIND • 21st BIRTHDAY • 20 SEPTEMBER 2026
+  </footer>
+
+  <script>
+    // Direct scene switcher
+    function goToStep(stepNumber) {
+      for (var s = 1; s <= 8; s++) {
+        var el = document.getElementById('sc-' + s);
+        if (el) el.style.display = 'none';
+      }
+      var target = document.getElementById('sc-' + stepNumber);
+      if (target) target.style.display = 'block';
+      
+      // Auto-trigger audio attempt on any navigation
+      try {
+        var audio = document.getElementById('audio-player');
+        if (audio && audio.paused) {
+          audio.play().then(function() {
+            document.getElementById('audio-status').innerText = "🔊 Sound On";
+          }).catch(function() {});
+        }
+      } catch(e) {}
+    }
+
+    // Audio button toggle
+    function startOrMuteAudio() {
+      var audio = document.getElementById('audio-player');
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play().then(function() {
+          document.getElementById('audio-status').innerText = "🔊 Sound On";
+        }).catch(function() {});
+      } else {
+        audio.pause();
+        document.getElementById('audio-status').innerText = "🔈 Sound Off";
+      }
+    }
+
+    // Scene 2: Math
+    function checkAnswer(val, btn) {
+      var reply = document.getElementById('math-reply');
+      if (val === 4) {
+        btn.style.background = "#10b981";
+        reply.innerText = "Correct! 🎈";
+        setTimeout(function() { goToStep(3); }, 500);
+      } else {
+        reply.innerText = "Are you sure? 😂 Try again!";
+      }
+    }
+
+    // Scene 3: Balloons
+    var poppedTotal = 0;
+    function popOne(btn, msg) {
+      if (btn.style.opacity === '0') return;
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+      poppedTotal++;
+      document.getElementById('pop-reply').innerText = '"' + msg + '"';
+      if (poppedTotal >= 7) {
+        document.getElementById('pop-reply').innerText = "BALLOON MISSION COMPLETE 🎈";
+        setTimeout(function() { goToStep(4); }, 600);
+      }
+    }
+
+    // Scene 4: Photos
+    var album = [
+      { img: "1000285479.jpg", tag: "Dedication", cap: "Focused, dedicated, and working hard towards big ambitions." },
+      { img: "1000285596.jpg", tag: "Shaadi Swag", cap: "Pagdi, garlands, & royal traditions. Celebrating in true brotherly style." },
+      { img: "1000285478.jpg", tag: "Golden Sunset", cap: "Golden hour brotherhood. Standing together towards endless horizons." },
+      { img: "1000285476.jpg", tag: "Festival Of Colors", cap: "Holi colors & endless laughter. Unbreakable bonds that last forever." },
+      { img: "1000285477.jpg", tag: "Desi Roots", cap: "Simple moments and calm breezes in the countryside." },
+      { img: "1000285590.png", tag: "Brothers For Life", cap: "Street smiles, big dreams, and unstoppable 21st energy." }
+    ];
+    var pIdx = 0;
+
+    function nextPhoto(step) {
+      pIdx = (pIdx + step + 6) % 6;
+      var cur = album[pIdx];
+      document.getElementById('img-tag').innerText = cur.tag;
+      document.getElementById('img-display').src = cur.img;
+      document.getElementById('img-cap').innerText = cur.cap;
+      document.getElementById('img-num').innerText = "0" + (pIdx + 1) + " / 06";
+    }
+
+    // Scene 5: Quiz
+    function checkAge(age, btn) {
+      var reply = document.getElementById('age-reply');
+      if (age === 21) {
+        btn.style.background = "#f59e0b";
+        btn.style.color = "#000";
+        reply.innerText = "YES! Welcome to 21 ✨";
+        setTimeout(function() { goToStep(6); }, 500);
+      } else {
+        reply.innerText = "Nice try 😏 Try again!";
+      }
+    }
+
+    // Scene 6: Build Candles
+    var candlesOut = 0;
+    var cHolder = document.getElementById('candles-box');
+    if (cHolder) {
+      for (var i = 0; i < 21; i++) {
+        var c = document.createElement('button');
+        c.type = 'button';
+        c.className = 'candle';
+        c.innerHTML = '<div class="flame"></div><div class="wick"></div>';
+        c.onclick = function() {
+          var flame = this.querySelector('.flame');
+          if (flame && flame.style.opacity !== '0') {
+            flame.style.opacity = '0';
+            candlesOut++;
+            var left = 21 - candlesOut;
+            document.getElementById('candle-status').innerText = left > 0 ? left + " CANDLES LEFT" : "ALL WISHES SEALED ✨";
+            if (candlesOut >= 21) {
+              setTimeout(function() { goToStep(7); }, 600);
+            }
+          }
+        };
+        cHolder.appendChild(c);
+      }
+    }
+  </script>
+</body>
+</html>
