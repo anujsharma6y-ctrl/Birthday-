@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Happy 21st Birthday Govind! 🎂</title>
   
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@400;600;800;900&display=swap');
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,9 +14,9 @@
     }
 
     body {
-      background-color: #060713;
+      background: radial-gradient(circle at 50% 20%, #15162e 0%, #060713 100%);
       color: #f8fafc;
-      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -29,50 +25,29 @@
       padding: 16px 12px;
       text-align: center;
       overflow-x: hidden;
-      transition: background 0.8s ease;
-    }
-
-    .font-serif-title {
-      font-family: 'Playfair Display', serif;
     }
 
     .neon-gold {
       background: linear-gradient(135deg, #fff3b0 0%, #ffd700 50%, #f59e0b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.4));
     }
 
     .neon-pink-cyan {
       background: linear-gradient(135deg, #38bdf8 0%, #c084fc 50%, #f43f5e 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 12px rgba(244, 63, 94, 0.35));
-    }
-
-    .glow-blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.45;
-      transition: all 1s ease;
     }
 
     .celebration-card {
-      background: rgba(15, 23, 42, 0.68);
-      border: 1.5px solid rgba(192, 132, 252, 0.3);
-      border-radius: 28px;
-      padding: 24px 18px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1.5px solid rgba(192, 132, 252, 0.35);
+      border-radius: 24px;
+      padding: 20px 16px;
       width: 100%;
-      max-width: 380px;
+      max-width: 360px;
       margin: 10px auto;
-      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.15);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      position: relative;
-      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
 
     .btn-glow {
@@ -80,178 +55,116 @@
       color: #ffffff;
       font-weight: 800;
       border: none;
-      border-radius: 22px;
-      padding: 16px 28px;
-      font-size: 16px;
-      letter-spacing: 0.6px;
+      border-radius: 20px;
+      padding: 15px 24px;
+      font-size: 15px;
+      letter-spacing: 0.5px;
       width: 100%;
       max-width: 320px;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.45);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
       display: inline-block;
       margin-top: 14px;
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
     }
     .btn-glow:active {
       transform: scale(0.96);
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
     }
 
     .door-box {
-      width: 165px;
-      height: 230px;
+      width: 160px;
+      height: 220px;
       margin: 16px auto;
       border: 2.5px solid #c084fc;
-      border-radius: 88px 88px 10px 10px;
+      border-radius: 80px 80px 8px 8px;
       background: radial-gradient(circle, #2e1065 0%, #090914 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 35px rgba(192, 132, 252, 0.35);
-      position: relative;
-    }
-    .door-inner {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(145deg, #581c87, #1e1b4b);
-      border-radius: 84px 84px 6px 6px;
-      border: 1px solid rgba(236, 72, 153, 0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transform-origin: left center;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .door-inner.open {
-      transform: rotateY(-112deg);
     }
 
-    @keyframes gentleDrift {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(3deg); }
-    }
     .balloon-unit {
-      animation: gentleDrift 3s infinite ease-in-out;
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
     }
     .balloon-body {
-      width: 58px;
-      height: 72px;
-      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      width: 54px;
+      height: 66px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       font-weight: 900;
-      font-size: 16px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      font-size: 15px;
     }
     .balloon-string {
       width: 1.5px;
-      height: 18px;
+      height: 16px;
       background: rgba(255,255,255,0.4);
-    }
-
-    @keyframes flameFlicker {
-      0%, 100% { transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 6px #f59e0b); }
-      50% { transform: scale(1.22) rotate(2deg); filter: drop-shadow(0 0 14px #fbbf24); }
-    }
-    .flame-on {
-      animation: flameFlicker 0.5s infinite alternate ease-in-out;
     }
 
     .photo-stage {
       width: 100%;
-      height: 340px;
-      border-radius: 20px;
+      height: 320px;
+      border-radius: 18px;
       overflow: hidden;
       margin: 12px 0;
       background: #020205;
-      border: 2px solid rgba(192, 132, 252, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85);
-      position: relative;
+      border: 1.5px solid rgba(192, 132, 252, 0.4);
     }
     .photo-stage img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      transition: transform 5s ease, opacity 0.3s ease;
-    }
-    .photo-stage:hover img {
-      transform: scale(1.06);
     }
 
     .scene-view {
       width: 100%;
-      max-width: 380px;
+      max-width: 360px;
       display: none;
       flex-direction: column;
       align-items: center;
       margin: auto;
-      position: relative;
-      z-index: 10;
-      animation: fadeInScene 0.45s ease-out;
     }
     .scene-view.active {
       display: flex !important;
-    }
-    @keyframes fadeInScene {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes zoomBounce {
-      0% { transform: scale(0.3); opacity: 0; }
-      70% { transform: scale(1.2); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .pop-number {
-      animation: zoomBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Lighting Blobs -->
-  <div id="blob-1" class="glow-blob" style="width: 320px; height: 320px; background: #6b21a8; top: -60px; left: -60px;"></div>
-  <div id="blob-2" class="glow-blob" style="width: 300px; height: 300px; background: #be185d; bottom: -60px; right: -60px;"></div>
-
-  <!-- Background Visual Canvas -->
-  <canvas id="fx-canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5;"></canvas>
+  <!-- Audio Tracks -->
+  <audio id="bg-audio" loop preload="none">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
 
   <!-- Top Bar -->
-  <header style="width: 100%; max-width: 380px; display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; z-index: 20;">
-    <span id="chapter-tag" style="font-size: 11px; font-weight: 800; letter-spacing: 2px; color: #cbd5e1; background: rgba(255,255,255,0.08); padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);">
+  <header style="width: 100%; max-width: 360px; display: flex; justify-content: space-between; align-items: center; padding: 4px 6px;">
+    <span id="chapter-tag" style="font-size: 11px; font-weight: bold; color: #cbd5e1; background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 16px;">
       ACT 01 / 11
     </span>
-    <button type="button" onclick="audioManager.toggleMute()" aria-label="Toggle sound and background music" style="background: rgba(0,0,0,0.6); border: 1.5px solid rgba(192, 132, 252, 0.5); color: #fde047; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer; backdrop-filter: blur(10px);">
+    <button type="button" onclick="toggleMute()" style="background: rgba(0,0,0,0.6); border: 1px solid #c084fc; color: #fde047; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer;">
       <span id="audio-tag">🔊 Sound ON</span>
     </button>
   </header>
 
-  <!-- MAIN SCENES CONTAINER -->
-  <main style="width: 100%; max-width: 380px; margin: auto;">
+  <main style="width: 100%; max-width: 360px; margin: auto;">
 
-    <!-- ================= SCENE 1: THE PORTAL ================= -->
+    <!-- SCENE 1: DOOR -->
     <div id="sc-1" class="scene-view active">
-      <p style="color: #38bdf8; font-size: 13px; letter-spacing: 3px; font-weight: 800; text-transform: uppercase;">20 • 09 • 2026</p>
-      <h1 class="font-serif-title neon-gold text-4xl font-extrabold" style="margin: 8px 0 4px;">Hey Govind...</h1>
-      <p style="color: #cbd5e1; font-size: 13.5px; margin-bottom: 8px; line-height: 1.5;">An interactive 21st birthday adventure has been crafted for you.</p>
+      <p style="color: #38bdf8; font-size: 12px; letter-spacing: 2px; font-weight: bold;">20 • 09 • 2026</p>
+      <h1 class="neon-gold" style="font-size: 32px; font-weight: 900; margin: 6px 0;">Hey Govind...</h1>
+      <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 12px;">An interactive 21st birthday adventure has been crafted for you.</p>
 
       <div class="door-box" onclick="handleDoorOpen()">
-        <div id="door-element" class="door-inner">
-          <div style="border: 2px solid #fde047; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #fde047; font-size: 18px; font-weight: 900; margin-bottom: 20px; box-shadow: 0 0 15px rgba(253, 224, 71, 0.4);">21</div>
-          <div style="width: 12px; height: 12px; background: #ec4899; border-radius: 50%; margin-left: 64px; box-shadow: 0 0 10px #ec4899;"></div>
-          <span style="font-size: 11px; color: #fde047; font-weight: 900; letter-spacing: 1.5px; margin-top: 22px;">TAP TO OPEN</span>
-        </div>
+        <div style="border: 2px solid #fde047; border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; color: #fde047; font-size: 18px; font-weight: 900; margin-bottom: 18px;">21</div>
+        <div style="width: 12px; height: 12px; background: #ec4899; border-radius: 50%; margin-left: 60px;"></div>
+        <span style="font-size: 11px; color: #fde047; font-weight: bold; letter-spacing: 1px; margin-top: 20px;">TAP TO OPEN</span>
       </div>
 
       <button type="button" class="btn-glow" onclick="handleDoorOpen()">
@@ -259,80 +172,77 @@
       </button>
     </div>
 
-    <!-- ================= SCENE 2: BRAIN TEST ================= -->
+    <!-- SCENE 2: BRAIN TEST -->
     <div id="sc-2" class="scene-view">
-      <p style="color: #c084fc; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">Identity Verification</p>
-      <h2 class="font-serif-title text-2xl font-bold text-white" style="margin: 4px 0 12px;">First, verify you are Govind</h2>
+      <p style="color: #c084fc; font-size: 12px; font-weight: bold; text-transform: uppercase;">Identity Verification</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0 10px;">First, verify you are Govind</h2>
       
       <div class="celebration-card">
-        <p style="color: #cbd5e1; font-size: 13px;">Solve this high-level mathematical test:</p>
-        <p class="font-serif-title neon-gold text-4xl font-extrabold" style="margin: 12px 0;">2 + 2 = ?</p>
+        <p style="color: #cbd5e1; font-size: 13px;">Solve this equation:</p>
+        <p class="neon-gold" style="font-size: 34px; font-weight: 900; margin: 10px 0;">2 + 2 = ?</p>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;">
-          <button type="button" onclick="handleMath(2, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">2</button>
-          <button type="button" onclick="handleMath(3, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">3</button>
-          <button type="button" onclick="handleMath(4, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">4</button>
-          <button type="button" onclick="handleMath(5, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 14px; font-size: 20px; font-weight: 800; cursor: pointer;">5</button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <button type="button" onclick="handleMath(2, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 18px; font-weight: bold;">2</button>
+          <button type="button" onclick="handleMath(3, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 18px; font-weight: bold;">3</button>
+          <button type="button" onclick="handleMath(4, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 18px; font-weight: bold;">4</button>
+          <button type="button" onclick="handleMath(5, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 18px; font-weight: bold;">5</button>
         </div>
-        <p id="math-reply" style="color: #f43f5e; font-size: 13.5px; font-weight: 700; margin-top: 14px; min-height: 20px;"></p>
+        <p id="math-reply" style="color: #f43f5e; font-size: 13px; font-weight: bold; margin-top: 12px; min-height: 18px;"></p>
       </div>
     </div>
 
-    <!-- ================= SCENE 3: POP BALLOONS ================= -->
+    <!-- SCENE 3: POP BALLOONS -->
     <div id="sc-3" class="scene-view">
-      <p style="color: #38bdf8; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">Warm-up Mission</p>
-      <h2 class="font-serif-title text-2xl font-bold text-white" style="margin: 4px 0 6px;">Pop All 7 Balloons</h2>
+      <p style="color: #38bdf8; font-size: 12px; font-weight: bold; text-transform: uppercase;">Warm-up Mission</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0;">Pop All 7 Balloons</h2>
       <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 8px;">Tap each balloon to release secret blessings</p>
 
-      <div class="celebration-card" style="padding: 16px 12px;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 8px 0;">
-          <div class="balloon-unit" onclick="popBalloon(this, 'Officially turning 21!')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #ec4899);">1</div><div class="balloon-string"></div></div>
-          <div class="balloon-unit" onclick="popBalloon(this, 'Shaadi swag & royal pagdis.')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #8b5cf6);">2</div><div class="balloon-string"></div></div>
-          <div class="balloon-unit" onclick="popBalloon(this, 'Brotherhood for life.')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #38bdf8);">3</div><div class="balloon-string"></div></div>
-          <div class="balloon-unit" onclick="popBalloon(this, 'Unstoppable ambition.')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #10b981);">4</div><div class="balloon-string"></div></div>
-          <div class="balloon-unit" onclick="popBalloon(this, 'Unforgettable moments.')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #f59e0b);">5</div><div class="balloon-string"></div></div>
-          <div class="balloon-unit" onclick="popBalloon(this, 'Endless reasons to smile.')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #ef4444);">6</div><div class="balloon-string"></div></div>
-          <div class="balloon-unit" onclick="popBalloon(this, 'Only the beginning...')"><div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #06b6d4);">7</div><div class="balloon-string"></div></div>
+      <div class="celebration-card">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 8px 0;">
+          <div class="balloon-unit" onclick="popBalloon(this, 'Officially turning 21!')"><div class="balloon-body" style="background: #ec4899;">1</div><div class="balloon-string"></div></div>
+          <div class="balloon-unit" onclick="popBalloon(this, 'Shaadi swag & royal pagdis.')"><div class="balloon-body" style="background: #8b5cf6;">2</div><div class="balloon-string"></div></div>
+          <div class="balloon-unit" onclick="popBalloon(this, 'Brotherhood for life.')"><div class="balloon-body" style="background: #38bdf8;">3</div><div class="balloon-string"></div></div>
+          <div class="balloon-unit" onclick="popBalloon(this, 'Unstoppable ambition.')"><div class="balloon-body" style="background: #10b981;">4</div><div class="balloon-string"></div></div>
+          <div class="balloon-unit" onclick="popBalloon(this, 'Unforgettable moments.')"><div class="balloon-body" style="background: #f59e0b;">5</div><div class="balloon-string"></div></div>
+          <div class="balloon-unit" onclick="popBalloon(this, 'Endless reasons to smile.')"><div class="balloon-body" style="background: #ef4444;">6</div><div class="balloon-string"></div></div>
+          <div class="balloon-unit" onclick="popBalloon(this, 'Only the beginning...')"><div class="balloon-body" style="background: #06b6d4;">7</div><div class="balloon-string"></div></div>
         </div>
-        <p id="balloon-txt" class="neon-pink-cyan" style="font-size: 15px; font-weight: 800; min-height: 24px; margin-top: 8px;"></p>
+        <p id="balloon-txt" class="neon-pink-cyan" style="font-size: 14px; font-weight: bold; min-height: 20px;"></p>
       </div>
     </div>
 
-    <!-- ================= SCENE 4: MINI SCENE "21" BALLOON ================= -->
+    <!-- SCENE 4: 21 BALLOON BURST -->
     <div id="sc-4" class="scene-view">
-      <p style="color: #fde047; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">A Golden Milestone</p>
-      <h2 class="font-serif-title text-2xl font-bold text-white" style="margin: 4px 0 10px;">One Golden Balloon Remains</h2>
+      <p style="color: #fde047; font-size: 12px; font-weight: bold; text-transform: uppercase;">A Golden Milestone</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0 10px;">One Golden Balloon Remains</h2>
       
       <div class="celebration-card" style="padding: 30px 16px;">
-        <p style="color: #cbd5e1; font-size: 13.5px; margin-bottom: 20px;">Tap the giant 21 balloon to unlock your memories:</p>
-        
-        <div id="golden-balloon-btn" class="balloon-unit" onclick="burstGoldenBalloon()" style="margin: 0 auto; transform: scale(1.4);">
-          <div class="balloon-body" style="background: radial-gradient(circle at 35% 30%, #fff, #f59e0b); width: 80px; height: 95px; font-size: 28px; font-weight: 900; box-shadow: 0 0 30px rgba(245,158,11,0.6);">21</div>
-          <div class="balloon-string" style="height: 28px;"></div>
+        <div id="golden-balloon-btn" class="balloon-unit" onclick="burstGoldenBalloon()" style="margin: 0 auto; transform: scale(1.3);">
+          <div class="balloon-body" style="background: #f59e0b; width: 70px; height: 85px; font-size: 24px; font-weight: 900;">21</div>
+          <div class="balloon-string" style="height: 24px;"></div>
         </div>
-
-        <p id="golden-burst-txt" class="neon-gold" style="font-size: 16px; font-weight: 800; margin-top: 30px; min-height: 24px;"></p>
+        <p id="golden-burst-txt" class="neon-gold" style="font-size: 15px; font-weight: bold; margin-top: 24px; min-height: 20px;"></p>
       </div>
     </div>
 
-    <!-- ================= SCENE 5: MEMORY LANE (BIG PHOTOS) ================= -->
+    <!-- SCENE 5: MEMORY LANE -->
     <div id="sc-5" class="scene-view">
-      <p style="color: #c084fc; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">Memory Lane</p>
-      <h2 class="font-serif-title text-2xl font-bold text-white" style="margin: 4px 0;">Moments Of Govind</h2>
+      <p style="color: #c084fc; font-size: 12px; font-weight: bold; text-transform: uppercase;">Memory Lane</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0;">Moments Of Govind</h2>
 
       <div class="celebration-card">
-        <span id="photo-tag" style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(192, 132, 252, 0.2); border: 1px solid #c084fc; color: #fbcfe8; font-size: 12px; font-weight: 800; text-transform: uppercase;">Dedication</span>
+        <span id="photo-tag" style="display: inline-block; padding: 4px 12px; border-radius: 16px; background: rgba(192, 132, 252, 0.2); border: 1px solid #c084fc; color: #fbcfe8; font-size: 12px; font-weight: bold; text-transform: uppercase;">Dedication</span>
         
         <div class="photo-stage">
-          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory[span_10](start_span)"[span_10](end_span) />
+          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory[span_12](start_span)"[span_12](end_span) />
         </div>
         
-        <p id="photo-cap" style="font-size: 14px; font-weight: 600; color: #f1f5f9; min-height: 42px; line-height: 1.4;">White coat & stethoscope. Dedicated to greatness.</p>
+        <p id="photo-cap" style="font-size: 13px; font-weight: 600; color: #f1f5f9; min-height: 38px; line-height: 1.4;">White coat & stethoscope. Dedicated to greatness.</p>
         
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding: 0 4px;">
-          <button type="button" onclick="slidePhoto(-1)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(192, 132, 252, 0.4); color: #fde047; font-weight: 800; font-size: 13px; padding: 8px 18px; border-radius: 12px; cursor: pointer;">◀ PREV</button>
-          <span id="photo-num" style="font-size: 13px; color: #cbd5e1; font-family: monospace; font-weight: 700;">01 / 06</span>
-          <button type="button" onclick="slidePhoto(1)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(192, 132, 252, 0.4); color: #fde047; font-weight: 800; font-size: 13px; padding: 8px 18px; border-radius: 12px; cursor: pointer;">NEXT ▶</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+          <button type="button" onclick="slidePhoto(-1)" style="background: rgba(255,255,255,0.08); border: 1px solid #c084fc; color: #fde047; font-weight: bold; font-size: 13px; padding: 6px 16px; border-radius: 10px; cursor: pointer;">◀ PREV</button>
+          <span id="photo-num" style="font-size: 13px; color: #cbd5e1; font-family: monospace; font-weight: bold;">01 / 06</span>
+          <button type="button" onclick="slidePhoto(1)" style="background: rgba(255,255,255,0.08); border: 1px solid #c084fc; color: #fde047; font-weight: bold; font-size: 13px; padding: 6px 16px; border-radius: 10px; cursor: pointer;">NEXT ▶</button>
         </div>
       </div>
 
@@ -341,43 +251,139 @@
       </button>
     </div>
 
-    <!-- ================= SCENE 6: 21 REASONS DECK ================= -->
+    <!-- SCENE 6: 21 REASONS -->
     <div id="sc-6" class="scene-view">
-      <p style="color: #38bdf8; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">Milestone Cards</p>
-      <h2 class="font-serif-title text-2xl font-bold text-white" style="margin: 4px 0 8px;">21 Reasons We Celebrate You</h2>
+      <p style="color: #38bdf8; font-size: 12px; font-weight: bold; text-transform: uppercase;">Milestone Cards</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0 8px;">21 Reasons We Celebrate You</h2>
       
-      <div class="celebration-card" style="padding: 26px 16px; min-height: 240px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div class="celebration-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
         <div>
-          <span id="reason-num" style="font-size: 14px; font-family: monospace; font-weight: 800; color: #fde047; display: block; margin-bottom: 8px;">REASON 01 / 21</span>
-          <p id="reason-text" class="neon-pink-cyan" style="font-size: 20px; font-weight: 800; line-height: 1.4;">"Your unwavering dedication & focus in medicine"</p>
+          <span id="reason-num" style="font-size: 13px; font-family: monospace; font-weight: bold; color: #fde047; display: block; margin-bottom: 6px;">REASON 01 / 21</span>
+          <p id="reason-text" class="neon-pink-cyan" style="font-size: 18px; font-weight: 800; line-height: 1.4;">"Your unwavering dedication & focus in medicine"</p>
         </div>
         
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button type="button" onclick="nextReason()" class="btn-glow" style="margin: 0; width: 100%;">TAP NEXT REASON ✨</button>
-        </div>
+        <button type="button" onclick="nextReason()" class="btn-glow" style="width: 100%; margin: 12px 0 0;">NEXT REASON ✨</button>
       </div>
 
-      <button type="button" onclick="showScene(7)" style="color: #94a3b8; font-size: 13px; font-weight: 700; margin-top: 14px; text-decoration: underline; background: none; border: none; cursor: pointer;">
+      <button type="button" onclick="showScene(7)" style="color: #94a3b8; font-size: 12px; font-weight: bold; margin-top: 10px; background: none; border: none; cursor: pointer;">
         Skip to Quick Quiz →
       </button>
     </div>
 
-    <!-- ================= SCENE 7: AGE QUIZ ================= -->
+    <!-- SCENE 7: AGE QUIZ -->
     <div id="sc-7" class="scene-view">
-      <p style="color: #c084fc; font-size: 12px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase;">Quick Check</p>
-      <h2 class="font-serif-title text-2xl font-bold text-white" style="margin: 4px 0 10px;">The 21 Challenge</h2>
+      <p style="color: #c084fc; font-size: 12px; font-weight: bold; text-transform: uppercase;">Quick Check</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0 10px;">The 21 Challenge</h2>
 
       <div class="celebration-card">
         <p style="font-size: 14px; color: #cbd5e1; font-weight: 600; margin-bottom: 8px;">How old is Govind turning today?</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
-          <button type="button" onclick="handleAgeQuiz(18, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">18</button>
-          <button type="button" onclick="handleAgeQuiz(19, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">19</button>
-          <button type="button" onclick="handleAgeQuiz(20, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">20</button>
-          <button type="button" onclick="handleAgeQuiz(21, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">21</button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <button type="button" onclick="handleAgeQuiz(18, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 20px; font-weight: bold;">18</button>
+          <button type="button" onclick="handleAgeQuiz(19, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 20px; font-weight: bold;">19</button>
+          <button type="button" onclick="handleAgeQuiz(20, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 20px; font-weight: bold;">20</button>
+          <button type="button" onclick="handleAgeQuiz(21, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 14px; border-radius: 12px; font-size: 20px; font-weight: bold;">21</button>
         </div>
-        <p id="age-msg" style="color: #f43f5e; font-size: 14px; font-weight: 800; margin-top: 14px; min-height: 20px;"></p>
+        <p id="age-msg" style="color: #f43f5e; font-size: 13px; font-weight: bold; margin-top: 12px; min-height: 18px;"></p>
       </div>
     </div>
 
-    <!-- ================= SCENE 8: 21 CANDLES ================= -->
-    <div id="sc-8
+    <!-- SCENE 8: 21 CANDLES -->
+    <div id="sc-8" class="scene-view">
+      <p style="color: #fde047; font-size: 12px; font-weight: bold; text-transform: uppercase;">Milestone Tradition</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0;">Make A Wish, Govind ✨</h2>
+      <p style="color: #cbd5e1; font-size: 12px; margin-bottom: 8px;">Tap all 21 candles to blow them out</p>
+
+      <div class="celebration-card">
+        <div id="candles-box" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 10px 0;"></div>
+        
+        <div style="background: #78350f; border: 1.5px solid #f59e0b; border-radius: 12px; padding: 10px; font-weight: bold; color: #fef08a;">
+          TURNING 21
+        </div>
+        <p id="candle-txt" style="color: #fde047; font-size: 12px; font-family: monospace; margin-top: 8px; font-weight: bold;">21 CANDLES LIT</p>
+      </div>
+    </div>
+
+    <!-- SCENE 9: LETTER -->
+    <div id="sc-9" class="scene-view">
+      <p style="color: #c084fc; font-size: 12px; font-weight: bold; text-transform: uppercase;">Emotional Note</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 4px 0 10px;">All These Moments...</h2>
+
+      <div class="celebration-card">
+        <div id="env-closed" onclick="openLetterSafe()" style="cursor: pointer; padding: 16px 0;">
+          <div style="font-size: 54px; margin-bottom: 10px;">💌</div>
+          <button type="button" class="btn-glow" style="width: auto; padding: 10px 24px; margin-top: 0;">OPEN LETTER ❤️</button>
+        </div>
+
+        <div id="env-open" style="display: none; text-align: left;">
+          <p style="color: #fde047; font-size: 12px; font-family: monospace; font-weight: bold;">20 • 09 • 2026</p>
+          <p style="font-size: 13px; line-height: 1.6; color: #f1f5f9; margin-top: 8px; white-space: pre-line;">
+Dear Govind,
+
+Today marks the milestone arrival of your 21st year.
+
+From your dedication and focus in hospital corridors to rocking traditional pagdis at family weddings and sharing unforgettable laughs with your brothers—you bring genuine warmth, respect, and character everywhere.
+
+May your 21st chapter bring you:
+• Unstoppable success in medicine and ambition
+• Countless celebrations with your brothers
+• Genuine prosperity, joy, and peace of mind
+
+Happy 21st Birthday, Govind! ❤️
+          </p>
+          <button type="button" class="btn-glow" onclick="showScene(10)">BRACE YOURSELF FOR THE FINALE 🎁</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 10: COUNTDOWN -->
+    <div id="sc-10" class="scene-view">
+      <p style="color: #f43f5e; font-size: 12px; letter-spacing: 2px; font-weight: bold;">GET READY</p>
+      <h2 style="font-size: 22px; font-weight: bold; margin: 6px 0 16px;">The Reveal Begins In...</h2>
+      
+      <div class="celebration-card" style="padding: 40px 16px;">
+        <div id="countdown-digit" class="neon-gold" style="font-size: 80px; font-weight: 900; line-height: 1;">3</div>
+        <p id="countdown-caption" style="color: #cbd5e1; font-size: 13px; font-weight: bold; margin-top: 16px;">TAKE A DEEP BREATH</p>
+      </div>
+    </div>
+
+    <!-- SCENE 11: FINALE -->
+    <div id="sc-11" class="scene-view">
+      <p style="color: #38bdf8; font-size: 12px; letter-spacing: 2px; font-weight: bold;">20 SEPTEMBER 2026</p>
+      <h1 class="neon-gold" style="font-size: 34px; font-weight: 900; margin: 4px 0 0;">HAPPY BIRTHDAY</h1>
+      <h2 class="neon-pink-cyan" style="font-size: 42px; font-weight: 900; margin: 0 0 4px;">GOVIND</h2>
+      
+      <div class="neon-gold" style="font-size: 70px; font-weight: 900; line-height: 1; margin: 4px 0 10px;">21</div>
+
+      <div class="celebration-card" onclick="openGiftSafe()" style="cursor: pointer; padding: 16px;">
+        <div id="gift-emoji" style="font-size: 48px; margin-bottom: 6px;">🎁</div>
+        <p id="gift-lead" style="font-size: 13px; color: #f1f5f9; font-weight: 600;">Tap the gift box to unlock Chapter 21</p>
+      </div>
+
+      <div id="movie-ending" style="display: none; margin-top: 12px;">
+        <p style="color: #fde047; font-size: 13px; font-weight: bold; letter-spacing: 1px;">CHAPTER 21 BEGINS NOW...</p>
+        <p style="color: #cbd5e1; font-size: 12px; margin-top: 2px;">More memories. More laughter. More triumphs.</p>
+      </div>
+
+      <button type="button" onclick="location.reload()" style="background: rgba(255,255,255,0.08); border: 1px solid #c084fc; color: #fde047; border-radius: 16px; padding: 12px; font-size: 13px; font-weight: bold; margin-top: 14px; width: 100%; max-width: 320px; cursor: pointer;">
+        PLAY AGAIN ↺
+      </button>
+    </div>
+
+  </main>
+
+  <footer style="color: #64748b; font-size: 10px; letter-spacing: 1px; padding-top: 10px;">
+    GOVIND • 21st BIRTHDAY • 20 SEPTEMBER 2026
+  </footer>
+
+  <script>
+    /* ====================================================================
+       SAFE AUDIO PLAYBACK (Zero freezes, unblocked DOM)
+       ==================================================================== */
+    let isMuted = false;
+
+    function playSound(file) {
+      if (isMuted) return;
+      try {
+        const a = new Audio(file);
+        a.play().catch(() => {});
+      } ca
