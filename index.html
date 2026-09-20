@@ -129,16 +129,28 @@
       object-position: center top;
     }
 
-    .candle {
+    .candle-btn {
       background: none;
       border: none;
-      font-size: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       cursor: pointer;
-      padding: 2px 0;
-      transition: transform 0.15s;
     }
-    .candle:active { transform: scale(0.8); }
-    .candle.out { opacity: 0.35; filter: grayscale(1); pointer-events: none; }
+    .flame-el {
+      width: 8px;
+      height: 12px;
+      background: #fbbf24;
+      border-radius: 50%;
+      margin-bottom: 2px;
+      box-shadow: 0 0 8px #f59e0b;
+    }
+    .wick-el {
+      width: 5px;
+      height: 20px;
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
 
     .scene {
       width: 100%;
@@ -150,31 +162,20 @@
     }
     .scene.active {
       display: flex !important;
-      animation: fadeIn 0.5s ease;
+      animation: fadeIn 0.4s ease;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    .confetti {
-      position: fixed;
-      top: -30px;
-      font-size: 22px;
-      pointer-events: none;
-      z-index: 999;
-      animation: fall linear forwards;
-    }
-    @keyframes fall {
-      to { transform: translateY(110vh) rotate(540deg); opacity: 0.8; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Music (put birthday.mp3 in the same folder) -->
+  <!-- Background Music Audio -->
   <audio id="bg-music" loop preload="none">
     <source src="birthday.mp3" type="audio/mpeg" />
+    <source src="music.mp3" type="audio/mpeg" />
   </audio>
 
   <!-- Top Status Bar -->
@@ -405,339 +406,18 @@ Happy 21st Birthday, Govind! ❤️</p>
   </footer>
 
   <script>
-    // ---------- Helpers ----------
-    function $(id) { return document.getElementById(id); }
-    function pad(n) { return n < 10 ? '0' + n : '' + n; }
-
-    // ---------- Audio ----------
+    // ---------- AUDIO ENGINE (Zero-freeze, non-blocking) ----------
     let isMuted = false;
-    let audioCtx = null;
 
-    
-    // Small synthesized sound effects (no extra audio files needed)
-    function beep(freq, dur, type) {
+    function playAudio(filename) {
       if (isMuted) return;
-      try {
-        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type || 'sine';
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + dur);
-      } catch (e) {}
-    }
-    function sfxGood()  { beep(660, 0.12, 'triangle'); setTimeout(function () { beep(880, 0.18, 'triangle'); }, 110); }
-    function sfxBad()   { beep(180, 0.25, 'sawtooth'); }
-    function sfxPop()   { beep(500 + Math.random() * 400, 0.08, 'square'); }
-    function sfxTick()  { beep(440, 0.1, 'sine'); }
-    function sfxWin() {
-      [523, 659, 784, 1046].forEach(function (f, i) {
-        setTimeout(function () { beep(f, 0.25, 'triangle'); }, i * 130);
-      });
-    }
-
-    function startMusic() {
-      const bg = $('bg-music');
-      if (bg && !isMuted) {
+      setTimeout(() => {
         try {
-          bg.volume = 0.5;
-          const p = bg.play();
-          if (p !== undefined) p.catch(function () {});
-        } catch (e) {}
-      }
-    }
-
-    $('mute-toggle').addEventListener('click', function () {
-      isMuted = !isMuted;
-      const bg = $('bg-music');
-      if (isMuted) {
-        this.innerText = '🔇 Sound OFF';
-        if (bg) bg.pause();
-      } else {
-        this.innerText = '🔊 Sound ON';
-        startMusic();
-      }
-    });
-
-    // ---------- Confetti ----------
-    function confetti(count) {
-      const items = ['🎉', '✨', '🎈', '🎊', '⭐', '💛'];
-      for (let i = 0; i < (count || 30); i++) {
-        const el = document.createElement('span');
-        el.className = 'confetti';
-        el.textContent = items[Math.floor(Math.random() * items.length)];
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.animationDuration = (2 + Math.random() * 2.5) + 's';
-        el.style.animationDelay = (Math.random() * 0.6) + 's';
-        document.body.appendChild(el);
-        setTimeout(function () { el.remove(); }, 5500);
-      }
-    }
-
-    // ---------- Navigation ----------
-    const TOTAL_SCENES = 11;
-    function navigateTo(sceneIndex) {
-      for (let i = 1; i <= TOTAL_SCENES; i++) {
-        const view = $('sc-' + i);
-        if (view) view.classList.remove('active');
-      }
-      const target = $('sc-' + sceneIndex);
-      if (target) target.classList.add('active');
-      $('act-tag').textContent = 'ACT ' + pad(sceneIndex) + ' / ' + TOTAL_SCENES;
-      window.scrollTo(0, 0);
-
-      if (sceneIndex === 10) startCountdown();
-    }
-
-    // ---------- Scene 1: Door ----------
-    let doorOpened = false;
-    function openDoor() {
-      if (doorOpened) return;
-      doorOpened = true;
-      startMusic();
-      sfxGood();
-      navigateTo(2);
-    }
-    $('door-click-area').addEventListener('click', openDoor);
-    $('door-btn').addEventListener('click', openDoor);
-
-    // ---------- Scene 2: Math test ----------
-    const mathReplies = {
-      '2': 'Hmm... that is not it. Try again 😄',
-      '3': 'Close, but not quite! 🤔',
-      '5': 'Doctors need better maths than that! 😂'
-    };
-    document.querySelectorAll('.math-opt').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const val = btn.getAttribute('data-val');
-        const reply = $('math-reply');
-        if (val === '4') {
-          reply.style.color = '#10b981';
-          reply.textContent = 'Correct! Identity verified ✅';
-          sfxGood();
-          setTimeout(function () {
-            reply.textContent = '';
-            navigateTo(3);
-          }, 900);
-        } else {
-          reply.style.color = '#f43f5e';
-          reply.textContent = mathReplies[val] || 'Try again!';
-          sfxBad();
-        }
-      });
-    });
-
-    // ---------- Scene 3: 7 balloons ----------
-    let poppedCount = 0;
-    document.querySelectorAll('.balloon-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        if (btn.classList.contains('popped')) return;
-        btn.classList.add('popped');
-        poppedCount++;
-        $('balloon-txt').textContent = btn.getAttribute('data-msg');
-        sfxPop();
-        if (poppedCount === 7) {
-          setTimeout(function () { navigateTo(4); }, 1100);
-        }
-      });
-    });
-
-    // ---------- Scene 4: Golden balloon ----------
-    let goldPopped = false;
-    $('gold-balloon').addEventListener('click', function () {
-      if (goldPopped) return;
-      goldPopped = true;
-      this.style.transform = 'scale(1.4)';
-      this.style.opacity = '0';
-      this.style.transition = 'all 0.4s';
-      $('gold-balloon-txt').textContent = 'BOOM! Your 21st year begins! 🎉';
-      sfxWin();
-      confetti(35);
-      setTimeout(function () { navigateTo(5); }, 1500);
-    });
-
-    // ---------- Scene 5: Photos ----------
-    // Replace the file names below with your real photos (same folder as this file).
-    const photos = [
-      { src: '1000285479.jpg', tag: 'Dedication', cap: 'White coat & stethoscope. Dedicated to greatness.' },
-      { src: 'photo2.jpg',     tag: 'Style',      cap: 'Pagdi on, swag turned all the way up.' },
-      { src: 'photo3.jpg',     tag: 'Brotherhood', cap: 'Brothers for life, in every celebration.' },
-      { src: 'photo4.jpg',     tag: 'Family',     cap: 'Shaadi season, royal vibes.' },
-      { src: 'photo5.jpg',     tag: 'Smiles',     cap: 'Laughs that make every room lighter.' },
-      { src: 'photo6.jpg',     tag: 'Future',     cap: 'The best chapters are still ahead.' }
-    ];
-    let photoIdx = 0;
-
-    const placeholderSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="100%" height="100%" fill="#1e1b4b"/>' +
-      '<text x="50%" y="46%" fill="#fde047" font-size="60" text-anchor="middle">📷</text>' +
-      '<text x="50%" y="62%" fill="#cbd5e1" font-size="18" font-family="sans-serif" text-anchor="middle">Photo coming soon</text></svg>'
-    );
-
-    const photoImg = $('photo-display');
-    photoImg.addEventListener('error', function () {
-      if (photoImg.src !== placeholderSvg) photoImg.src = placeholderSvg;
-    });
-
-    function showPhoto(i) {
-      photoIdx = (i + photos.length) % photos.length;
-      const p = photos[photoIdx];
-      photoImg.src = p.src;
-      $('photo-tag').textContent = p.tag;
-      $('photo-caption').textContent = p.cap;
-      $('photo-counter').textContent = pad(photoIdx + 1) + ' / ' + pad(photos.length);
-    }
-    $('prev-photo').addEventListener('click', function () { sfxTick(); showPhoto(photoIdx - 1); });
-    $('next-photo').addEventListener('click', function () { sfxTick(); showPhoto(photoIdx + 1); });
-    $('to-reasons-btn').addEventListener('click', function () { sfxGood(); navigateTo(6); });
-
-    // ---------- Scene 6: 21 reasons ----------
-    const reasons = [
-      'Your unwavering dedication & focus in medicine',
-      'Your kindness towards everyone around you',
-      'The way you show up for your brothers, every time',
-      'Your style, especially in a royal pagdi',
-      'Your respect for family and tradition',
-      'Your calm mind under pressure',
-      'Your laugh, which is impossible to ignore',
-      'Your hard work when nobody is watching',
-      'Your ambition that keeps growing',
-      'Your loyalty, which never wavers',
-      'Your ability to make any gathering better',
-      'Your willingness to help without being asked',
-      'Your curiosity and love of learning',
-      'Your confidence with a humble heart',
-      'Your great sense of humour',
-      'Your patience when things get tough',
-      'Your generosity with time and support',
-      'Your honesty, even when it is difficult',
-      'Your energy at every celebration',
-      'Your dreams, which keep getting bigger',
-      'Simply because you are Govind, turning 21!'
-    ];
-    let reasonIdx = 0;
-
-    function showReason() {
-      $('reason-num').textContent = 'REASON ' + pad(reasonIdx + 1) + ' / 21';
-      $('reason-text').textContent = '"' + reasons[reasonIdx] + '"';
-      $('next-reason-btn').textContent = reasonIdx === reasons.length - 1 ? 'START THE QUIZ 🎯' : 'NEXT REASON ✨';
-    }
-    $('next-reason-btn').addEventListener('click', function () {
-      sfxTick();
-      if (reasonIdx >= reasons.length - 1) {
-        navigateTo(7);
-        return;
-      }
-      reasonIdx++;
-      showReason();
-    });
-    $('skip-reasons').addEventListener('click', function () { navigateTo(7); });
-
-    // ---------- Scene 7: Age quiz ----------
-    document.querySelectorAll('.age-opt').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const age = btn.getAttribute('data-age');
-        const reply = $('age-reply');
-        if (age === '21') {
-          reply.style.color = '#10b981';
-          reply.textContent = 'Yes! 21 today! 🥳';
-          sfxWin();
-          setTimeout(function () {
-            reply.textContent = '';
-            navigateTo(8);
-          }, 1000);
-        } else {
-          reply.style.color = '#f43f5e';
-          reply.textContent = 'Nope, you are past that already 😄';
-          sfxBad();
-        }
-      });
-    });
-
-    // ---------- Scene 8: Candles ----------
-    let candlesLeft = 21;
-    const candleBox = $('candles-container');
-    for (let i = 0; i < 21; i++) {
-      const c = document.createElement('button');
-      c.type = 'button';
-      c.className = 'candle';
-      c.textContent = '🕯️';
-      c.addEventListener('click', function () {
-        if (c.classList.contains('out')) return;
-        c.classList.add('out');
-        candlesLeft--;
-        sfxPop();
-        const txt = $('candle-txt');
-        if (candlesLeft > 0) {
-          txt.textContent = candlesLeft + ' CANDLE' + (candlesLeft === 1 ? '' : 'S') + ' LIT';
-        } else {
-          txt.textContent = 'WISH MADE! ✨';
-          sfxWin();
-          confetti(25);
-          setTimeout(function () { navigateTo(9); }, 1400);
-        }
-      });
-      candleBox.appendChild(c);
-    }
-
-    // ---------- Scene 9: Letter ----------
-    $('open-letter-btn').addEventListener('click', function () {
-      $('letter-sealed').style.display = 'none';
-      $('letter-unsealed').style.display = 'block';
-      sfxGood();
-    });
-    $('to-countdown-btn').addEventListener('click', function () { navigateTo(10); });
-
-    // ---------- Scene 10: Countdown ----------
-    let countdownTimer = null;
-    function startCountdown() {
-      if (countdownTimer) return;
-      let n = 3;
-      const numEl = $('countdown-num');
-      const txtEl = $('countdown-text');
-      const msgs = { 3: 'TAKE A DEEP BREATH', 2: 'HERE WE GO...', 1: 'ALMOST THERE!' };
-      numEl.textContent = n;
-      txtEl.textContent = msgs[n];
-      sfxTick();
-
-      countdownTimer = setInterval(function () {
-        n--;
-        if (n > 0) {
-          numEl.textContent = n;
-          txtEl.textContent = msgs[n];
-          sfxTick();
-        } else {
-          clearInterval(countdownTimer);
-          countdownTimer = null;
-          navigateTo(11);
-          sfxWin();
-          confetti(45);
-        }
-      }, 1000);
-    }
-
-    // ---------- Scene 11: Gift ----------
-    let giftOpened = false;
-    $('gift-box').addEventListener('click', function () {
-      if (giftOpened) return;
-      giftOpened = true;
-      $('gift-icon').textContent = '🎉';
-      $('gift-text').textContent = 'Chapter 21 unlocked!';
-      $('final-tag').style.display = 'block';
-      sfxWin();
-      confetti(60);
-    });
-
-    // Initial state
-    showReason();
-    showPhoto(0);
-  </script>
-</body>
-</html>
-    
+          const snd = new Audio(filename);
+          snd.volume = 0.5;
+          const p = snd.play();
+          if (p !== undefined) {
+            p.catch(() => {});
+          }
+        } catch(e) {}
+      
