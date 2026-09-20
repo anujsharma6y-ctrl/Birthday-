@@ -36,7 +36,6 @@
       font-family: 'Playfair Display', serif;
     }
 
-    /* Vibrant Gradients & Text Glows */
     .neon-gold {
       background: linear-gradient(135deg, #fff3b0 0%, #ffd700 50%, #f59e0b 100%);
       -webkit-background-clip: text;
@@ -51,7 +50,6 @@
       filter: drop-shadow(0 0 12px rgba(244, 63, 94, 0.35));
     }
 
-    /* Ambient Background Glow Blobs */
     .glow-blob {
       position: fixed;
       border-radius: 50%;
@@ -62,9 +60,8 @@
       transition: all 1s ease;
     }
 
-    /* Glass Cards */
     .celebration-card {
-      background: rgba(15, 23, 42, 0.65);
+      background: rgba(15, 23, 42, 0.68);
       border: 1.5px solid rgba(192, 132, 252, 0.3);
       border-radius: 28px;
       padding: 24px 18px;
@@ -78,7 +75,6 @@
       z-index: 10;
     }
 
-    /* Glowing Buttons */
     .btn-glow {
       background: linear-gradient(135deg, #38bdf8 0%, #8b5cf6 50%, #ec4899 100%);
       color: #ffffff;
@@ -101,7 +97,6 @@
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
     }
 
-    /* 3D Door Portal */
     .door-box {
       width: 165px;
       height: 230px;
@@ -134,7 +129,6 @@
       transform: rotateY(-112deg);
     }
 
-    /* Floating Balloons with String */
     @keyframes gentleDrift {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-12px) rotate(3deg); }
@@ -157,6 +151,7 @@
       font-weight: 900;
       font-size: 16px;
       box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
     .balloon-string {
       width: 1.5px;
@@ -164,7 +159,6 @@
       background: rgba(255,255,255,0.4);
     }
 
-    /* Candle Flame */
     @keyframes flameFlicker {
       0%, 100% { transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 6px #f59e0b); }
       50% { transform: scale(1.22) rotate(2deg); filter: drop-shadow(0 0 14px #fbbf24); }
@@ -173,7 +167,6 @@
       animation: flameFlicker 0.5s infinite alternate ease-in-out;
     }
 
-    /* Ken Burns Photo Zoom */
     .photo-stage {
       width: 100%;
       height: 340px;
@@ -190,13 +183,12 @@
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      transition: transform 6s ease, opacity 0.3s ease;
+      transition: transform 5s ease, opacity 0.3s ease;
     }
     .photo-stage:hover img {
-      transform: scale(1.08);
+      transform: scale(1.06);
     }
 
-    /* Screen Tab Management */
     .scene-view {
       width: 100%;
       max-width: 380px;
@@ -206,7 +198,7 @@
       margin: auto;
       position: relative;
       z-index: 10;
-      animation: fadeInScene 0.5s ease-out;
+      animation: fadeInScene 0.45s ease-out;
     }
     .scene-view.active {
       display: flex !important;
@@ -216,7 +208,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Dramatic Number Scaling */
     @keyframes zoomBounce {
       0% { transform: scale(0.3); opacity: 0; }
       70% { transform: scale(1.2); }
@@ -224,6 +215,13 @@
     }
     .pop-number {
       animation: zoomBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, .balloon-unit, .pop-number, .flame-on, .door-inner {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
@@ -233,22 +231,16 @@
   <div id="blob-1" class="glow-blob" style="width: 320px; height: 320px; background: #6b21a8; top: -60px; left: -60px;"></div>
   <div id="blob-2" class="glow-blob" style="width: 300px; height: 300px; background: #be185d; bottom: -60px; right: -60px;"></div>
 
-  <!-- Background Canvas for Fireworks & Confetti -->
+  <!-- Background Canvas for Visual Confetti & Fireworks -->
   <canvas id="fx-canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5;"></canvas>
 
-  <!-- Background Music Track -->
-  <audio id="bg-audio-track" loop preload="none">
-    <source src="music.mp3" type="audio/mpeg" />
-    <source src="birthday.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- Top Bar: Progress & Sound -->
+  <!-- Top Bar: Progress & Sound Switcher -->
   <header style="width: 100%; max-width: 380px; display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; z-index: 20;">
     <span id="chapter-tag" style="font-size: 11px; font-weight: 800; letter-spacing: 2px; color: #cbd5e1; background: rgba(255,255,255,0.08); padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);">
       ACT 01 / 11
     </span>
-    <button type="button" onclick="toggleAudio()" style="background: rgba(0,0,0,0.6); border: 1.5px solid rgba(192, 132, 252, 0.5); color: #fde047; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer; backdrop-filter: blur(10px);">
-      <span id="audio-tag">🔈 Sound Off</span>
+    <button type="button" onclick="audioManager.toggleMute()" aria-label="Toggle sound and background music" style="background: rgba(0,0,0,0.6); border: 1.5px solid rgba(192, 132, 252, 0.5); color: #fde047; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer; backdrop-filter: blur(10px);">
+      <span id="audio-tag">🔊 Sound ON</span>
     </button>
   </header>
 
@@ -339,7 +331,7 @@
         <span id="photo-tag" style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(192, 132, 252, 0.2); border: 1px solid #c084fc; color: #fbcfe8; font-size: 12px; font-weight: 800; text-transform: uppercase;">Dedication</span>
         
         <div class="photo-stage">
-          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory" />
+          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory[span_2](start_span)"[span_2](end_span) />
         </div>
         
         <p id="photo-cap" style="font-size: 14px; font-weight: 600; color: #f1f5f9; min-height: 42px; line-height: 1.4;">White coat & stethoscope. Dedicated to greatness.</p>
@@ -388,4 +380,4 @@
           <button type="button" onclick="handleAgeQuiz(18, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">18</button>
           <button type="button" onclick="handleAgeQuiz(19, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">19</button>
           <button type="button" onclick="handleAgeQuiz(20, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">20</button>
-          <button type="button" onclick="handleAgeQuiz(21, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,
+          <button type="button" onclick="handleAgeQuiz(21, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">21</button>
