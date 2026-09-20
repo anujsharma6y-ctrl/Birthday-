@@ -80,6 +80,11 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      animation: door-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes door-pulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(192, 132, 252, 0); }
+      50% { box-shadow: 0 0 26px rgba(192, 132, 252, 0.55); }
     }
 
     .balloon-row {
@@ -101,6 +106,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .balloon-btn:active {
+      transform: scale(0.9);
     }
 
     .photo-container {
@@ -130,13 +139,59 @@
     .scene.active {
       display: flex !important;
     }
+
+    .balloon-btn.popped {
+      opacity: 0;
+      transform: scale(1.5);
+      pointer-events: none;
+    }
+
+    .candle {
+      background: none;
+      border: none;
+      padding: 5px 0;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.25s ease, opacity 0.25s ease;
+    }
+    .candle:active {
+      transform: scale(0.82);
+    }
+    .candle.out {
+      filter: grayscale(1) brightness(0.55);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .confetti-bit {
+      position: fixed;
+      top: -20px;
+      width: 8px;
+      height: 14px;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 60;
+      animation-name: confetti-fall;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(104vh) rotate(720deg); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .door-box { animation: none; }
+      .confetti-bit { display: none; }
+    }
   </style>
 </head>
 <body>
 
   <!-- Background Music Audio -->
   <audio id="bg-music" loop preload="none">
-    <source src="birthday.mp3" type="audio/mpeg" />
+    <source src="music.mp3" type="audio/mpeg" />
   </audio>
 
   <!-- Top Status Bar -->
@@ -228,7 +283,7 @@
         <span id="photo-tag" style="display: inline-block; padding: 4px 12px; border-radius: 16px; background: rgba(192, 132, 252, 0.2); border: 1px solid #c084fc; color: #fbcfe8; font-size: 12px; font-weight: bold; text-transform: uppercase;">Dedication</span>
         
         <div class="photo-container">
-          <img id="photo-display" src="1000285479.jpg" alt="Govind Memory[span_0](start_span)"[span_0](end_span) />
+          <img id="photo-display" src="1000285479.jpg" alt="A memory of Govind" />
         </div>
         
         <p id="photo-caption" style="font-size: 13px; font-weight: 600; color: #f1f5f9; min-height: 38px; line-height: 1.4;">White coat & stethoscope. Dedicated to greatness.</p>
@@ -370,26 +425,55 @@ Happy 21st Birthday, Govind! ❤️
   </footer>
 
   <script>
+    'use strict';
+
+    var TOTAL_SCENES = 11;
+
+    var SFX = {
+      click:    'universfield-click-button-140881.mp3',
+      whoosh:   'mixkit-cinematic-whoosh-fast-transition-1492.wav',
+      pop:      'mixkit-click-balloon-small-burst-3070.wav',
+      correct:  'mixkit-correct-answer-tone-2870.wav',
+      wrong:    'mixkit-cartoon-failure-piano-473.wav',
+      sparkle:  'mixkit-fairy-arcade-sparkle-866.wav',
+      blow:     'mixkit-human-mouth-fast-blow-2659.wav',
+      tick:     'mixkit-tick-tock-clock-timer-1045.wav',
+      firework: 'mixkit-fast-whistle-firework-3103.wav',
+      trailer:  'mixkit-cinematic-transition-swoosh-heartbeat-trailer-488.wav'
+    };
+
     // Audio engine with non-blocking error guards
-    let isMuted = false;
+    var isMuted = false;
 
     function triggerAudio(file) {
       if (isMuted) return;
       setTimeout(function() {
         try {
-          const snd = new Audio(file);
+          var snd = new Audio(file);
           snd.volume = 0.5;
-          const p = snd.play();
+          var p = snd.play();
           if (p !== undefined) {
             p.catch(function() {});
           }
-        } catch(e) {}
+        } catch (e) {}
       }, 0);
     }
 
-    // Toggle Sound Button
-    const muteBtn = document.getElementById('mute-toggle');
-    const bgMusic = document.getElementById('bg-music');
+    var muteBtn = document.getElementById('mute-toggle');
+    var bgMusic = document.getElementById('bg-music');
+    var musicStarted = false;
+
+    // Autoplay is blocked until the visitor interacts, so the music starts on the first tap.
+    function startMusic() {
+      if (musicStarted || isMuted || !bgMusic) return;
+      musicStarted = true;
+      bgMusic.volume = 0.25;
+      var p = bgMusic.play();
+      if (p !== undefined) {
+        p.catch(function() { musicStarted = false; });
+      }
+    }
+
     if (muteBtn) {
       muteBtn.addEventListener('click', function() {
         isMuted = !isMuted;
@@ -398,16 +482,395 @@ Happy 21st Birthday, Govind! ❤️
           if (bgMusic) bgMusic.pause();
         } else {
           muteBtn.innerText = "🔊 Sound ON";
-          if (bgMusic) bgMusic.play().catch(function() {});
+          if (bgMusic) {
+            var p = bgMusic.play();
+            if (p !== undefined) p.catch(function() {});
+          }
         }
       });
     }
 
+    function pad2(n) {
+      return (n < 10 ? '0' : '') + n;
+    }
+
     // Navigation Switcher
+    var currentScene = 1;
+
     function navigateTo(sceneIndex) {
-      for (let i = 1; i <= 11; i++) {
-        const view = document.getElementById('sc-' + i);
+      var target = document.getElementById('sc-' + sceneIndex);
+      if (!target) return;
+
+      for (var i = 1; i <= TOTAL_SCENES; i++) {
+        var view = document.getElementById('sc-' + i);
         if (view) view.classList.remove('active');
       }
-      const target = document.getElementById('sc-' + sceneIndex);
-    
+
+      target.classList.add('active');
+      currentScene = sceneIndex;
+
+      var tag = document.getElementById('act-tag');
+      if (tag) tag.innerText = 'ACT ' + pad2(sceneIndex) + ' / ' + TOTAL_SCENES;
+
+      window.scrollTo(0, 0);
+      triggerAudio(SFX.whoosh);
+
+      if (sceneIndex === 8) buildCandles();
+      if (sceneIndex === 10) runCountdown();
+    }
+
+    // Confetti burst
+    function burstConfetti(count) {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var colors = ['#38bdf8', '#c084fc', '#f43f5e', '#fde047', '#10b981', '#f59e0b'];
+      for (var i = 0; i < count; i++) {
+        var bit = document.createElement('div');
+        bit.className = 'confetti-bit';
+        bit.style.left = Math.random() * 100 + 'vw';
+        bit.style.background = colors[i % colors.length];
+        bit.style.animationDuration = (1.8 + Math.random() * 1.6) + 's';
+        bit.style.animationDelay = (Math.random() * 0.5) + 's';
+        document.body.appendChild(bit);
+        (function(node) {
+          setTimeout(function() {
+            if (node && node.parentNode) node.parentNode.removeChild(node);
+          }, 4200);
+        })(bit);
+      }
+    }
+
+    // SCENE 1: Door
+    function enterShow() {
+      startMusic();
+      triggerAudio(SFX.click);
+      navigateTo(2);
+    }
+
+    var doorArea = document.getElementById('door-click-area');
+    var doorBtn = document.getElementById('door-btn');
+    if (doorArea) doorArea.addEventListener('click', enterShow);
+    if (doorBtn) doorBtn.addEventListener('click', enterShow);
+
+    // SCENE 2: Math check
+    var mathReply = document.getElementById('math-reply');
+    var mathOpts = document.querySelectorAll('.math-opt');
+    var mathDone = false;
+
+    Array.prototype.forEach.call(mathOpts, function(btn) {
+      btn.addEventListener('click', function() {
+        if (mathDone) return;
+        startMusic();
+        if (btn.getAttribute('data-val') === '4') {
+          mathDone = true;
+          btn.style.background = '#10b981';
+          btn.style.borderColor = '#10b981';
+          if (mathReply) {
+            mathReply.style.color = '#10b981';
+            mathReply.innerText = "Verified. It really is you. 🎈";
+          }
+          triggerAudio(SFX.correct);
+          setTimeout(function() { navigateTo(3); }, 700);
+        } else {
+          if (mathReply) {
+            mathReply.style.color = '#f43f5e';
+            mathReply.innerText = "Are you sure? 😂 Try again!";
+          }
+          triggerAudio(SFX.wrong);
+        }
+      });
+    });
+
+    // SCENE 3: Balloons
+    var balloonTxt = document.getElementById('balloon-txt');
+    var balloonBtns = document.querySelectorAll('.balloon-btn');
+    var popped = 0;
+
+    Array.prototype.forEach.call(balloonBtns, function(btn) {
+      btn.addEventListener('click', function() {
+        if (btn.classList.contains('popped')) return;
+        btn.classList.add('popped');
+        popped++;
+        triggerAudio(SFX.pop);
+
+        if (balloonTxt) balloonTxt.innerText = '"' + (btn.getAttribute('data-msg') || '') + '"';
+
+        if (popped >= balloonBtns.length) {
+          triggerAudio(SFX.correct);
+          if (balloonTxt) balloonTxt.innerText = "ALL BLESSINGS RELEASED 🎈";
+          setTimeout(function() { navigateTo(4); }, 900);
+        }
+      });
+    });
+
+    // SCENE 4: The golden balloon
+    var goldBalloon = document.getElementById('gold-balloon');
+    var goldTxt = document.getElementById('gold-balloon-txt');
+    if (goldBalloon) {
+      goldBalloon.addEventListener('click', function() {
+        goldBalloon.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
+        goldBalloon.style.transform = 'scale(1.6)';
+        goldBalloon.style.opacity = '0';
+        goldBalloon.style.pointerEvents = 'none';
+        triggerAudio(SFX.pop);
+        if (goldTxt) goldTxt.innerText = "21 years of being impossible to replace.";
+        setTimeout(function() {
+          triggerAudio(SFX.sparkle);
+          navigateTo(5);
+        }, 1100);
+      });
+    }
+
+    // SCENE 5: Memory carousel
+    var album = [
+      { img: '1000285479.jpg', tag: 'Dedication',        cap: 'White coat & stethoscope. Dedicated to greatness.' },
+      { img: '1000285596.jpg', tag: 'Shaadi Swag',       cap: 'Pagdi, garlands & royal traditions. Celebrating in true brotherly style.' },
+      { img: '1000285478.jpg', tag: 'Golden Sunset',     cap: 'Golden hour brotherhood. Standing together towards endless horizons.' },
+      { img: '1000285476.jpg', tag: 'Festival Of Colors',cap: 'Holi colours & endless laughter. Bonds that do not wash off.' },
+      { img: '1000285477.png', tag: 'Desi Roots',        cap: 'Simple moments and calm breezes in the countryside.' },
+      { img: '1000285590.jpg', tag: 'Brothers For Life', cap: 'Street smiles, big dreams and unstoppable 21st energy.' }
+    ];
+
+    var photoIdx = 0;
+    var photoTag = document.getElementById('photo-tag');
+    var photoImg = document.getElementById('photo-display');
+    var photoCap = document.getElementById('photo-caption');
+    var photoCounter = document.getElementById('photo-counter');
+
+    function renderPhoto() {
+      var cur = album[photoIdx];
+      if (photoTag) photoTag.innerText = cur.tag;
+      if (photoImg) {
+        photoImg.src = cur.img;
+        photoImg.alt = cur.tag + ' — a memory of Govind';
+      }
+      if (photoCap) photoCap.innerText = cur.cap;
+      if (photoCounter) photoCounter.innerText = pad2(photoIdx + 1) + ' / ' + pad2(album.length);
+    }
+
+    function stepPhoto(step) {
+      photoIdx = (photoIdx + step + album.length) % album.length;
+      triggerAudio(SFX.click);
+      renderPhoto();
+    }
+
+    var prevPhoto = document.getElementById('prev-photo');
+    var nextPhoto = document.getElementById('next-photo');
+    if (prevPhoto) prevPhoto.addEventListener('click', function() { stepPhoto(-1); });
+    if (nextPhoto) nextPhoto.addEventListener('click', function() { stepPhoto(1); });
+    renderPhoto();
+
+    var toReasonsBtn = document.getElementById('to-reasons-btn');
+    if (toReasonsBtn) toReasonsBtn.addEventListener('click', function() { navigateTo(6); });
+
+    // SCENE 6: 21 reasons
+    var reasons = [
+      'Your unwavering dedication & focus in medicine',
+      'The calm you bring into every crowded room',
+      'How you make long hospital corridors feel lighter',
+      'That laugh that sets off everyone else’s',
+      'Your loyalty — never once in question',
+      'The pagdi-and-sherwani swagger at every shaadi',
+      'How you show up for family before anyone asks',
+      'Your patience with the people who need it most',
+      'The late-night talks that somehow fix everything',
+      'Respect for your elders, kindness to strangers',
+      'The ambition you carry quietly instead of loudly',
+      'How you turn ordinary days into stories we retell',
+      'Your honesty, even when it is the harder option',
+      'Holi colours that never fully washed off',
+      'Your knack for remembering the small things',
+      'How hard you work when nobody is watching',
+      'The brother you have been to all of us',
+      'Your courage to begin again whenever you must',
+      'The dreams you keep chasing with both hands',
+      'Twenty-one years of being unmistakably you',
+      'And every chapter still waiting to be written'
+    ];
+
+    var reasonIdx = 0;
+    var reasonNum = document.getElementById('reason-num');
+    var reasonText = document.getElementById('reason-text');
+    var nextReasonBtn = document.getElementById('next-reason-btn');
+
+    function renderReason() {
+      if (reasonNum) reasonNum.innerText = 'REASON ' + pad2(reasonIdx + 1) + ' / ' + reasons.length;
+      if (reasonText) reasonText.innerText = '"' + reasons[reasonIdx] + '"';
+      if (nextReasonBtn) {
+        nextReasonBtn.innerText = (reasonIdx === reasons.length - 1)
+          ? "ON TO THE 21 CHALLENGE →"
+          : "NEXT REASON ✨";
+      }
+    }
+
+    if (nextReasonBtn) {
+      nextReasonBtn.addEventListener('click', function() {
+        if (reasonIdx === reasons.length - 1) {
+          triggerAudio(SFX.sparkle);
+          navigateTo(7);
+          return;
+        }
+        reasonIdx++;
+        triggerAudio(SFX.click);
+        renderReason();
+      });
+    }
+    renderReason();
+
+    var skipReasons = document.getElementById('skip-reasons');
+    if (skipReasons) skipReasons.addEventListener('click', function() { navigateTo(7); });
+
+    // SCENE 7: Age quiz
+    var ageReply = document.getElementById('age-reply');
+    var ageOpts = document.querySelectorAll('.age-opt');
+    var ageDone = false;
+
+    Array.prototype.forEach.call(ageOpts, function(btn) {
+      btn.addEventListener('click', function() {
+        if (ageDone) return;
+        if (btn.getAttribute('data-age') === '21') {
+          ageDone = true;
+          btn.style.background = '#10b981';
+          btn.style.borderColor = '#10b981';
+          if (ageReply) {
+            ageReply.style.color = '#10b981';
+            ageReply.innerText = "Twenty-one it is. Time for the cake. 🎂";
+          }
+          triggerAudio(SFX.correct);
+          setTimeout(function() { navigateTo(8); }, 750);
+        } else {
+          if (ageReply) {
+            ageReply.style.color = '#f43f5e';
+            ageReply.innerText = "Not quite — today is a bigger milestone than that!";
+          }
+          triggerAudio(SFX.wrong);
+        }
+      });
+    });
+
+    // SCENE 8: Candles
+    var CANDLE_TOTAL = 21;
+    var candlesContainer = document.getElementById('candles-container');
+    var candleTxt = document.getElementById('candle-txt');
+    var candlesOut = 0;
+    var candlesBuilt = false;
+
+    function buildCandles() {
+      if (candlesBuilt || !candlesContainer) return;
+      candlesBuilt = true;
+      candlesContainer.innerHTML = '';
+
+      for (var i = 0; i < CANDLE_TOTAL; i++) {
+        var candle = document.createElement('button');
+        candle.type = 'button';
+        candle.className = 'candle';
+        candle.innerText = '🕯️';
+        candle.setAttribute('aria-label', 'Blow out candle ' + (i + 1));
+        candle.addEventListener('click', function() {
+          if (this.classList.contains('out')) return;
+          this.classList.add('out');
+          candlesOut++;
+          triggerAudio(SFX.blow);
+
+          var left = CANDLE_TOTAL - candlesOut;
+          if (candleTxt) {
+            candleTxt.innerText = left > 0
+              ? left + ' CANDLE' + (left === 1 ? '' : 'S') + ' LEFT'
+              : 'ALL CANDLES OUT — WISH SENT ✨';
+          }
+
+          if (candlesOut >= CANDLE_TOTAL) {
+            triggerAudio(SFX.sparkle);
+            burstConfetti(40);
+            setTimeout(function() { navigateTo(9); }, 1100);
+          }
+        });
+        candlesContainer.appendChild(candle);
+      }
+      if (candleTxt) candleTxt.innerText = CANDLE_TOTAL + ' CANDLES LIT';
+    }
+
+    // SCENE 9: Letter
+    var letterSealed = document.getElementById('letter-sealed');
+    var letterUnsealed = document.getElementById('letter-unsealed');
+    var openLetterBtn = document.getElementById('open-letter-btn');
+
+    function openLetter() {
+      if (letterSealed) letterSealed.style.display = 'none';
+      if (letterUnsealed) letterUnsealed.style.display = 'block';
+      triggerAudio(SFX.sparkle);
+    }
+
+    if (openLetterBtn) {
+      openLetterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openLetter();
+      });
+    }
+    if (letterSealed) letterSealed.addEventListener('click', openLetter);
+
+    var toCountdownBtn = document.getElementById('to-countdown-btn');
+    if (toCountdownBtn) toCountdownBtn.addEventListener('click', function() { navigateTo(10); });
+
+    // SCENE 10: Countdown
+    var countdownNum = document.getElementById('countdown-num');
+    var countdownText = document.getElementById('countdown-text');
+    var countdownRunning = false;
+
+    function runCountdown() {
+      if (countdownRunning) return;
+      countdownRunning = true;
+
+      var n = 3;
+      if (countdownNum) countdownNum.innerText = String(n);
+      if (countdownText) countdownText.innerText = 'TAKE A DEEP BREATH';
+      triggerAudio(SFX.tick);
+
+      var timer = setInterval(function() {
+        n--;
+        if (n > 0) {
+          if (countdownNum) countdownNum.innerText = String(n);
+          triggerAudio(SFX.tick);
+          return;
+        }
+
+        clearInterval(timer);
+        if (countdownNum) countdownNum.innerText = '🎉';
+        if (countdownText) countdownText.innerText = 'HERE IT COMES';
+        triggerAudio(SFX.trailer);
+
+        setTimeout(function() {
+          navigateTo(11);
+          burstConfetti(70);
+        }, 1000);
+      }, 1000);
+    }
+
+    // SCENE 11: Finale
+    var giftBox = document.getElementById('gift-box');
+    var giftIcon = document.getElementById('gift-icon');
+    var giftText = document.getElementById('gift-text');
+    var finalTag = document.getElementById('final-tag');
+    var giftOpened = false;
+
+    if (giftBox) {
+      giftBox.addEventListener('click', function() {
+        if (giftOpened) {
+          burstConfetti(40);
+          triggerAudio(SFX.firework);
+          return;
+        }
+        giftOpened = true;
+        if (giftIcon) giftIcon.innerText = '🎊';
+        if (giftText) giftText.innerText = 'Unlocked. Twenty-one looks good on you, Govind.';
+        if (finalTag) finalTag.style.display = 'block';
+        triggerAudio(SFX.firework);
+        burstConfetti(90);
+      });
+    }
+
+    // Start on Act 01
+    navigateTo(1);
+  </script>
+
+</body>
+</html>
