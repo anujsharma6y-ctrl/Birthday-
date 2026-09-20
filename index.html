@@ -1,470 +1,923 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Happy 21st Birthday Govind! 🎂</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Caveat:wght@600;700&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#08000f">
+<title>Happy 21st Birthday Govind Sharma 🎂</title>
 
-  <style>
-    * {
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      box-sizing: border-box;
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050008;
+    color:#fff;
+}
+
+body{
+    perspective:1200px;
+}
+
+/* ================= BACKGROUND ================= */
+
+#app{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 20%,rgba(255,0,150,.18),transparent 35%),
+        radial-gradient(circle at 20% 80%,rgba(0,180,255,.15),transparent 35%),
+        radial-gradient(circle at 80% 70%,rgba(255,170,0,.13),transparent 35%),
+        #050008;
+}
+
+#stars{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.15;transform:scale(.5)}
+    to{opacity:1;transform:scale(1.7)}
+}
+
+/* ================= SLIDES ================= */
+
+#slides{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+
+.slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+    text-align:center;
+    opacity:0;
+    visibility:hidden;
+    transform:scale(.8) rotateX(15deg);
+    transition:
+        opacity .65s ease,
+        transform .8s cubic-bezier(.2,.8,.2,1),
+        visibility .65s;
+    overflow:hidden;
+}
+
+.slide.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1) rotateX(0);
+    z-index:5;
+}
+
+.content{
+    width:min(900px,94vw);
+    position:relative;
+    z-index:10;
+}
+
+.kicker{
+    font-size:clamp(12px,2vw,16px);
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:#ffd86b;
+    margin-bottom:18px;
+    font-weight:bold;
+}
+
+h1{
+    font-size:clamp(42px,10vw,105px);
+    line-height:.95;
+    font-weight:900;
+    background:linear-gradient(90deg,#fff,#ffd65a,#ff55c8,#fff);
+    background-size:300%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradientText 5s linear infinite;
+    text-shadow:0 0 30px rgba(255,70,180,.25);
+}
+
+@keyframes gradientText{
+    0%{background-position:0%}
+    100%{background-position:300%}
+}
+
+.subtitle{
+    margin-top:20px;
+    font-size:clamp(18px,4vw,30px);
+    color:#eee;
+    line-height:1.5;
+}
+
+.small{
+    font-size:14px;
+    color:#aaa;
+    margin-top:18px;
+}
+
+.typing{
+    min-height:1.2em;
+}
+
+/* ================= 3D OBJECTS ================= */
+
+.balloon{
+    position:absolute;
+    width:70px;
+    height:88px;
+    border-radius:50% 50% 45% 45%;
+    background:linear-gradient(135deg,#ff4b9b,#9d00ff);
+    box-shadow:inset -12px -15px 20px rgba(0,0,0,.2),0 0 30px rgba(255,0,150,.25);
+    animation:floatBalloon 4s ease-in-out infinite;
+}
+
+.balloon:after{
+    content:"";
+    position:absolute;
+    width:2px;
+    height:150px;
+    background:rgba(255,255,255,.5);
+    left:50%;
+    top:87px;
+}
+
+.balloon:before{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:inherit;
+    bottom:-4px;
+    left:calc(50% - 4px);
+    transform:rotate(45deg);
+}
+
+.b1{left:4%;top:12%;animation-delay:0s}
+.b2{right:5%;top:18%;background:linear-gradient(135deg,#00d9ff,#006eff);animation-delay:1s}
+.b3{left:9%;bottom:10%;background:linear-gradient(135deg,#ffd000,#ff6500);animation-delay:1.7s}
+.b4{right:8%;bottom:8%;background:linear-gradient(135deg,#63ff8a,#00a850);animation-delay:2.3s}
+
+@keyframes floatBalloon{
+    0%,100%{transform:translateY(0) rotate(-3deg)}
+    50%{transform:translateY(-30px) rotate(5deg)}
+}
+
+/* ================= 3D CUBE ================= */
+
+.scene{
+    width:180px;
+    height:180px;
+    margin:0 auto 35px;
+    perspective:600px;
+}
+
+.cube{
+    width:100%;
+    height:100%;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:spinCube 8s linear infinite;
+}
+
+.face{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:70px;
+    font-weight:900;
+    background:linear-gradient(135deg,rgba(255,30,150,.8),rgba(90,0,255,.8));
+    border:2px solid rgba(255,255,255,.5);
+    box-shadow:0 0 30px rgba(255,0,150,.4);
+    backdrop-filter:blur(8px);
+}
+
+.front{transform:translateZ(90px)}
+.back{transform:rotateY(180deg) translateZ(90px)}
+.right{transform:rotateY(90deg) translateZ(90px)}
+.left{transform:rotateY(-90deg) translateZ(90px)}
+.top{transform:rotateX(90deg) translateZ(90px)}
+.bottom{transform:rotateX(-90deg) translateZ(90px)}
+
+@keyframes spinCube{
+    from{transform:rotateX(-10deg) rotateY(0)}
+    to{transform:rotateX(-10deg) rotateY(360deg)}
+}
+
+/* ================= GLASS CARD ================= */
+
+.card{
+    width:min(650px,92vw);
+    margin:auto;
+    padding:35px 25px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:28px;
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.12),
+        rgba(255,255,255,.035)
+    );
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(255,255,255,.025);
+    backdrop-filter:blur(20px);
+}
+
+.card h2{
+    font-size:clamp(28px,7vw,55px);
+    margin-bottom:20px;
+}
+
+.card p{
+    color:#ddd;
+    font-size:clamp(16px,3vw,21px);
+    line-height:1.7;
+}
+
+/* ================= BIG 21 ================= */
+
+.number21{
+    font-size:clamp(150px,45vw,420px);
+    line-height:.7;
+    font-weight:1000;
+    background:linear-gradient(
+        180deg,
+        #fff,
+        #ffd000 35%,
+        #ff2999 65%,
+        #7400ff
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 0 40px rgba(255,0,170,.4));
+    animation:numberPulse 2s ease-in-out infinite;
+}
+
+@keyframes numberPulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.07)}
+}
+
+/* ================= CAKE ================= */
+
+.cake-wrap{
+    position:relative;
+    width:300px;
+    height:300px;
+    margin:auto;
+}
+
+.cake{
+    position:absolute;
+    width:220px;
+    height:100px;
+    background:linear-gradient(#ff77bd,#df2e8b);
+    border-radius:15px 15px 25px 25px;
+    bottom:35px;
+    left:40px;
+    box-shadow:0 20px 50px rgba(255,0,150,.3);
+}
+
+.cake:before{
+    content:"";
+    position:absolute;
+    top:-35px;
+    left:0;
+    width:220px;
+    height:45px;
+    border-radius:50%;
+    background:#fff1fa;
+    box-shadow:inset 0 -10px 0 #ffc6e6;
+}
+
+.cake:after{
+    content:"21";
+    position:absolute;
+    left:0;
+    right:0;
+    top:15px;
+    font-size:55px;
+    font-weight:900;
+    color:#fff;
+}
+
+.candle{
+    position:absolute;
+    width:13px;
+    height:65px;
+    background:repeating-linear-gradient(
+        45deg,
+        #fff 0 8px,
+        #ff45a0 8px 16px
+    );
+    bottom:135px;
+    border-radius:4px;
+}
+
+.candle:nth-child(1){left:90px}
+.candle:nth-child(2){left:143px}
+.candle:nth-child(3){left:196px}
+
+.flame{
+    position:absolute;
+    width:20px;
+    height:30px;
+    background:linear-gradient(#fff,#ffd000,#ff5200);
+    border-radius:50% 50% 50% 50%;
+    bottom:197px;
+    animation:flame .25s infinite alternate;
+    filter:drop-shadow(0 0 12px #ff9d00);
+}
+
+.flame:nth-child(4){left:87px}
+.flame:nth-child(5){left:140px}
+.flame:nth-child(6){left:193px}
+
+@keyframes flame{
+    from{transform:scale(.9) rotate(-4deg)}
+    to{transform:scale(1.15) rotate(5deg)}
+}
+
+.blown .flame{
+    opacity:0;
+    transform:translateY(-50px) scale(0);
+    transition:.5s;
+}
+
+/* ================= FUNNY CARDS ================= */
+
+.funny{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:30px;
+}
+
+.funny-box{
+    padding:25px 15px;
+    border-radius:20px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    transform:rotateY(0);
+    transition:.5s;
+}
+
+.funny-box:hover{
+    transform:translateY(-10px) rotateY(8deg);
+}
+
+.funny-box span{
+    font-size:42px;
+    display:block;
+    margin-bottom:12px;
+}
+
+.funny-box p{
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* ================= MEMORY WALL ================= */
+
+.memory-wall{
+    width:min(700px,95vw);
+    height:370px;
+    position:relative;
+    margin:auto;
+}
+
+.memory{
+    position:absolute;
+    width:150px;
+    min-height:130px;
+    padding:15px;
+    background:#fff;
+    color:#111;
+    box-shadow:0 15px 35px rgba(0,0,0,.5);
+    font-weight:bold;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    font-size:16px;
+}
+
+.memory:nth-child(1){left:5%;top:10%;transform:rotate(-9deg)}
+.memory:nth-child(2){left:38%;top:2%;transform:rotate(5deg)}
+.memory:nth-child(3){right:4%;top:17%;transform:rotate(9deg)}
+.memory:nth-child(4){left:17%;bottom:5%;transform:rotate(6deg)}
+.memory:nth-child(5){right:20%;bottom:0;transform:rotate(-7deg)}
+
+.memory span{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+/* ================= PROGRESS ================= */
+
+#progress{
+    position:absolute;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+    z-index:100;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+    transition:.3s;
+}
+
+.dot.active{
+    width:25px;
+    border-radius:10px;
+    background:#fff;
+    box-shadow:0 0 12px #fff;
+}
+
+/* ================= CONTROLS ================= */
+
+#controls{
+    position:absolute;
+    bottom:20px;
+    left:0;
+    right:0;
+    z-index:100;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+}
+
+button{
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.1);
+    color:#fff;
+    border-radius:50px;
+    padding:13px 20px;
+    font-size:14px;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:.25s;
+}
+
+button:hover{
+    background:rgba(255,255,255,.2);
+    transform:scale(1.05);
+}
+
+#musicBtn{
+    position:absolute;
+    right:18px;
+    bottom:20px;
+    z-index:101;
+}
+
+/* ================= CONFETTI ================= */
+
+.confetti{
+    position:absolute;
+    width:9px;
+    height:18px;
+    top:-30px;
+    z-index:50;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:
+            translate3d(
+                calc(var(--x) * 1px),
+                110vh,
+                0
+            )
+            rotate(720deg);
+        opacity:0;
     }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      background-color: #050510;
-      color: #f8fafc;
+}
+
+/* ================= FIREWORK ================= */
+
+.firework{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#fff;
+    left:50%;
+    top:45%;
+    z-index:40;
+    animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+    0%{
+        transform:scale(1);
+        opacity:1;
+        box-shadow:0 0 0 0 #fff;
     }
-    .font-handwriting {
-      font-family: 'Caveat', cursive;
+    100%{
+        transform:scale(1);
+        opacity:0;
+        box-shadow:
+            100px -80px 0 2px #ff4ba8,
+            -100px -70px 0 2px #00d9ff,
+            130px 30px 0 2px #ffd000,
+            -130px 40px 0 2px #7cff68,
+            70px 100px 0 2px #ff6b35,
+            -70px 110px 0 2px #b46cff;
     }
-    .font-cinzel {
-      font-family: 'Cinzel', serif;
+}
+
+/* ================= TYPEWRITER ================= */
+
+.cursor{
+    display:inline-block;
+    width:3px;
+    height:1em;
+    background:#fff;
+    vertical-align:-.12em;
+    margin-left:4px;
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:0}
+}
+
+/* ================= BUTTON TASK ================= */
+
+.task-button{
+    margin-top:25px;
+    padding:17px 28px;
+    background:linear-gradient(90deg,#ff1493,#7200ff);
+    border:0;
+    font-weight:bold;
+    box-shadow:0 0 30px rgba(255,0,160,.3);
+}
+
+.answer{
+    min-height:40px;
+    margin-top:20px;
+    color:#ffd86b;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+    .balloon{
+        width:45px;
+        height:60px;
     }
 
-    /* Dynamic festive gradients */
-    .bg-cosmic-glow {
-      background: radial-gradient(circle at 50% 30%, rgba(147, 51, 234, 0.25) 0%, rgba(30, 27, 75, 0.4) 45%, rgba(5, 5, 16, 0.95) 100%);
-    }
-    .glow-gold {
-      filter: drop-shadow(0 0 25px rgba(250, 204, 21, 0.6));
-    }
-    .glow-purple {
-      box-shadow: 0 0 35px -5px rgba(168, 85, 247, 0.5);
-    }
-    .perspective-1000 {
-      perspective: 1000px;
+    .balloon:after{
+        height:100px;
+        top:58px;
     }
 
-    /* Keyframes */
-    @keyframes float-slow {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(2deg); }
-    }
-    @keyframes flicker {
-      0%, 100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 10px #f59e0b); }
-      50% { transform: scale(0.85) skewX(2deg); opacity: 0.85; filter: drop-shadow(0 0 5px #ef4444); }
-    }
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.05); opacity: 0.4; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-    @keyframes shake-wrong {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-10px); }
-      40%, 80% { transform: translateX(10px); }
-    }
-    
-    .animate-float { animation: float-slow 4s ease-in-out infinite; }
-    .animate-flicker { animation: flicker 0.25s infinite alternate; }
-    .animate-pulse-ring { animation: pulse-ring 3s infinite ease-in-out; }
-    .animate-shake { animation: shake-wrong 0.4s ease-in-out; }
-
-    /* Custom Glassmorphism */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-    .glass-card-interactive {
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-card-interactive:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(234, 179, 8, 0.4);
-      transform: translateY(-2px);
+    .scene{
+        width:130px;
+        height:130px;
+        margin-bottom:25px;
     }
 
-    /* Hide standard scrollbars */
-    ::-webkit-scrollbar { display: none; }
-  </style>
+    .front{transform:translateZ(65px)}
+    .back{transform:rotateY(180deg) translateZ(65px)}
+    .right{transform:rotateY(90deg) translateZ(65px)}
+    .left{transform:rotateY(-90deg) translateZ(65px)}
+    .top{transform:rotateX(90deg) translateZ(65px)}
+    .bottom{transform:rotateX(-90deg) translateZ(65px)}
+
+    .face{
+        font-size:45px;
+    }
+
+    .funny{
+        gap:8px;
+    }
+
+    .funny-box{
+        padding:15px 8px;
+    }
+
+    .funny-box span{
+        font-size:30px;
+    }
+
+    .funny-box p{
+        font-size:11px;
+    }
+
+    .memory-wall{
+        height:300px;
+    }
+
+    .memory{
+        width:110px;
+        min-height:100px;
+        font-size:12px;
+    }
+
+    .memory span{
+        font-size:28px;
+    }
+
+    #controls{
+        bottom:12px;
+    }
+
+    button{
+        padding:11px 16px;
+    }
+
+    #musicBtn{
+        right:10px;
+        bottom:65px;
+    }
+}
+</style>
 </head>
-<body class="min-h-screen bg-cosmic-glow text-slate-100 flex flex-col justify-between relative overflow-hidden">
 
-  <!-- Background Particle / Fireworks Canvas -->
-  <canvas id="fireworksCanvas" class="fixed inset-0 pointer-events-none z-30"></canvas>
+<body>
 
-  <!-- Sound Engine Status & Top Header Bar -->
-  <header class="fixed top-0 inset-x-0 z-40 p-4 sm:p-6 flex items-center justify-between pointer-events-auto">
-    <div class="flex items-center gap-2">
-      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold text-xs tracking-wider">
-        21
-      </span>
-      <span id="chapterBadge" class="text-xs uppercase tracking-widest text-slate-300 font-semibold px-2.5 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-        CHAPTER 1 / 8
-      </span>
-    </div>
+<div id="app">
 
-    <!-- Sound Control Pill -->
-    <button id="audioToggleBtn" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-semibold hover:bg-white/20 transition-all">
-      <i data-lucide="volume-2" id="audioIcon" class="w-4 h-4 text-amber-300"></i>
-      <span id="audioLabel">Sound: ON</span>
-    </button>
-  </header>
+    <div id="stars"></div>
 
-  <!-- MAIN SCENE CONTAINER -->
-  <main id="sceneHost" class="flex-1 flex items-center justify-center p-4 sm:p-8 relative z-20 w-full max-w-3xl mx-auto my-auto min-h-[90vh]">
-    <!-- Dynamic scenes inject here -->
-  </main>
+    <div id="progress"></div>
 
-  <!-- PERSISTENT FOOTER PROGRESS -->
-  <footer class="relative z-40 pb-4 text-center text-xs text-slate-300 tracking-wider">
-    <span class="opacity-70">Dedicated to Govind • 20 September 2026</span>
-  </footer>
+    <!-- BALLOONS -->
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
 
-  <script>
-    /* =========================================================================
-       1. GLOBAL CONFIGURATION & CUSTOMIZABLE MEMORY PHOTOS
-       ========================================================================= */
-    const birthdayConfig = {
-      name: "Govind",
-      age: 21,
-      date: "20 September 2026",
-      
-      // INSERT YOUR CUSTOM PHOTOS HERE:
-      // You can replace the 'image' values with:
-      // 1) Relative paths: "/photos/myphoto1.jpg"
-      // 2) External web URLs: "https://your-domain.com/photo.jpg"
-      // 3) Base64 Data URLs: "data:image/jpeg;base64,..."
-      // If an image doesn't load, the app seamlessly falls back to a custom designed milestone card.
-      
-    // ---------- ACT 5: MEMORY LANE (All 6 Photos) ----------
-    const photoList = [
-      { img: "1000285479.jpg", tag: "Dedication", cap: "White coat & stethoscope. Dedicated to greatness." },[span_9](start_span)[span_9](end_span)
-      { img: "1000285596.jpg", tag: "Shaadi Swag", cap: "Celebrating in true brotherly style." },[span_10](start_span)[span_10](end_span)
-      { img: "1000285478.jpg", tag: "Golden Sunset", cap: "Golden hour brotherhood. Standing together towards endless horizons." },[span_11](start_span)[span_11](end_span)
-      { img: "1000285476.jpg", tag: "Festival Of Colors", cap: "Holi colors & endless laughter. Unbreakable bonds that last forever." },[span_12](start_span)[span_12](end_span)
-      { img: "1000285477.png", tag: "Desi Roots", cap: "Simple moments and calm breezes in the countryside." },[span_13](start_span)[span_13](end_span)
-      { img: "1000285590.jpg", tag: "Brothers For Life", cap: "Street smiles, big dreams, and unstoppable 21st energy." }[span_14](start_span)[span_14](end_span)
-    ];
-      ],
+    <main id="slides">
 
-      letter: `Dear Govind,
+        <!-- ================= SLIDE 1 ================= -->
+        <section class="slide active">
+            <div class="content">
 
-Today is no ordinary milestone. It marks 21 full revolutions of living, learning, laughing, and making the world brighter for everyone around you.
-
-May this 21st chapter bring you daring adventures, unbreakable peace of mind, fierce success, and countless moments that make you smile from ear to ear.
-
-Never lose the genuine spark, kindness, and relentless drive that makes you who you are.
-
-Happy 21st Birthday, Govind! ❤️
-20 • 09 • 2026`
-    };
-
-    /* =========================================================================
-       2. ZERO-DEPENDENCY PROCEDURAL AUDIO ENGINE (Web Audio API)
-       ========================================================================= */
-    class BirthdayAudioEngine {
-      constructor() {
-        this.ctx = null;
-        this.enabled = true;
-      }
-      
-      init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
-        }
-        if (this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
-      }
-
-      playPop() {
-        if (!this.enabled) return;
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        
-        const now = this.ctx.currentTime;
-        osc.frequency.setValueAtTime(440, now);
-        osc.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
-        
-        gain.gain.setValueAtTime(0.35, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.1);
-      }
-
-      playChime(freq = 523.25) {
-        if (!this.enabled) return;
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        
-        const now = this.ctx.currentTime;
-        osc.frequency.setValueAtTime(freq, now);
-        
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
-
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.52);
-      }
-
-      playSuccessFanfare() {
-        if (!this.enabled) return;
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-        notes.forEach((freq, idx) => {
-          setTimeout(() => this.playChime(freq), idx * 110);
-        });
-      }
-
-      playBoom() {
-        if (!this.enabled) return;
-        this.init();
-        const bufferSize = this.ctx.sampleRate * 0.5;
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
-
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = buffer;
-
-        const filter = this.ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(450, this.ctx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.5);
-
-        const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.ctx.destination);
-
-        noise.start();
-      }
-    }
-
-    const sound = new BirthdayAudioEngine();
-
-    // Sound toggle button wiring
-    const audioBtn = document.getElementById('audioToggleBtn');
-    const audioIcon = document.getElementById('audioIcon');
-    const audioLabel = document.getElementById('audioLabel');
-
-    audioBtn.addEventListener('click', () => {
-      sound.enabled = !sound.enabled;
-      if (sound.enabled) {
-        sound.init();
-        audioLabel.textContent = "Sound: ON";
-        audioIcon.setAttribute('data-lucide', 'volume-2');
-      } else {
-        audioLabel.textContent = "Sound: MUTED";
-        audioIcon.setAttribute('data-lucide', 'volume-x');
-      }
-      lucide.createIcons();
-    });
-
-    /* =========================================================================
-       3. HIGH-PERFORMANCE CANVAS FIREWORKS & PARTICLES
-       ========================================================================= */
-    const canvas = document.getElementById('fireworksCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let isRunning = true;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Particle {
-      constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 6 + 2;
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
-        this.alpha = 1;
-        this.decay = Math.random() * 0.015 + 0.012;
-        this.gravity = 0.12;
-        this.size = Math.random() * 3.5 + 2;
-      }
-      update() {
-        this.vx *= 0.98;
-        this.vy += this.gravity;
-        this.x += this.vx;
-        this.y += this.vy;
-        this.alpha -= this.decay;
-      }
-      draw(c) {
-        c.save();
-        c.globalAlpha = Math.max(0, this.alpha);
-        c.fillStyle = this.color;
-        c.beginPath();
-        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.fill();
-        c.restore();
-      }
-    }
-
-    function createFirework(x, y) {
-      sound.playBoom();
-      const colors = ['#F59E0B', '#EC4899', '#8B5CF6', '#10B981', '#3B82F6', '#F43F5E', '#FDE047'];
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      for (let i = 0; i < 50; i++) {
-        particles.push(new Particle(x, y, color));
-      }
-    }
-
-    function loopFireworks() {
-      if (!isRunning) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.update();
-        p.draw(ctx);
-        if (p.alpha <= 0) particles.splice(i, 1);
-      }
-      requestAnimationFrame(loopFireworks);
-    }
-    loopFireworks();
-
-    /* =========================================================================
-       4. SCENE STATE MACHINE & TRANSITIONS
-       ========================================================================= */
-    let currentScene = 1;
-    const totalScenes = 8;
-    const sceneHost = document.getElementById('sceneHost');
-    const chapterBadge = document.getElementById('chapterBadge');
-
-    function updateBadge(sceneNum) {
-      chapterBadge.textContent = `CHAPTER ${sceneNum} / ${totalScenes}`;
-    }
-
-    function renderScene(sceneNum) {
-      updateBadge(sceneNum);
-      sceneHost.innerHTML = '';
-      
-      const wrapper = document.createElement('div');
-      wrapper.className = "w-full flex flex-col items-center justify-center transition-all duration-700 opacity-0 scale-95";
-      
-      switch(sceneNum) {
-        case 1: buildScene1(wrapper); break;
-        case 2: buildScene2(wrapper); break;
-        case 3: buildScene3(wrapper); break;
-        case 4: buildScene4(wrapper); break;
-        case 5: buildScene5(wrapper); break;
-        case 6: buildScene6(wrapper); break;
-        case 7: buildScene7(wrapper); break;
-        case 8: buildScene8(wrapper); break;
-      }
-
-      sceneHost.appendChild(wrapper);
-      lucide.createIcons();
-
-      // Trigger enter animation
-      requestAnimationFrame(() => {
-        wrapper.classList.remove('opacity-0', 'scale-95');
-        wrapper.classList.add('opacity-100', 'scale-100');
-      });
-    }
-
-    /* -------------------------------------------------------------------------
-       SCENE 1: THE SECRET PORTAL DOOR
-       ------------------------------------------------------------------------- */
-    function buildScene1(container) {
-      container.innerHTML = `
-        <div class="text-center max-w-md w-full">
-          <p class="text-amber-400 font-bold uppercase tracking-widest text-xs mb-2">Exclusive Access</p>
-          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-pink-300 to-purple-300">
-            Hey ${birthdayConfig.name}...
-          </h1>
-          <p class="text-slate-300 text-sm sm:text-base mb-8">
-            Something extraordinary has been prepared for your milestone 21st.
-          </p>
-
-          <!-- 3D Glowing Door -->
-          <div class="relative w-44 h-64 mx-auto mb-8 perspective-1000 group cursor-pointer" id="portalDoorContainer">
-            <div class="absolute inset-0 bg-gradient-to-t from-amber-500/20 to-purple-500/20 rounded-2xl blur-xl animate-pulse-ring"></div>
-            
-            <!-- Door Frame -->
-            <div class="relative w-full h-full bg-slate-900 border-2 border-amber-400/40 rounded-2xl p-2 shadow-2xl flex items-center justify-center overflow-hidden">
-              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/20 via-slate-900 to-slate-950"></div>
-              
-              <!-- Door Leaf -->
-              <div id="doorLeaf" class="w-full h-full bg-gradient-to-b from-purple-900 via-slate-900 to-indigo-950 rounded-xl border border-amber-400/30 flex flex-col items-center justify-center transition-transform duration-1000 origin-left shadow-inner relative">
-                <div class="w-10 h-10 rounded-full border border-amber-400/40 flex items-center justify-center mb-4 bg-amber-400/10">
-                  <span class="text-amber-300 font-cinzel font-black text-sm">21</span>
+                <div class="scene">
+                    <div class="cube">
+                        <div class="face front">🎁</div>
+                        <div class="face back">🎂</div>
+                        <div class="face right">🎉</div>
+                        <div class="face left">🥳</div>
+                        <div class="face top">✨</div>
+                        <div class="face bottom">🎈</div>
+                    </div>
                 </div>
-                <div class="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b] self-end mr-4"></div>
-                <div class="mt-4 text-[10px] text-amber-200/50 uppercase tracking-widest font-mono">SEALED 20.09</div>
-              </div>
+
+                <div class="kicker">A Very Important Announcement</div>
+
+                <h1 class="typing"
+                    data-text="Wait... Something Is Coming"></h1>
+
+                <p class="subtitle">
+                    🚨 Birthday Alert 🚨<br>
+                    Please do not scroll away.
+                </p>
+
             </div>
-          </div>
+        </section>
 
-          <button id="openDoorBtn" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 text-white font-bold text-sm sm:text-base shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transform hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 mx-auto">
-            <span>UNSEAL YOUR SURPRISE</span>
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-          </button>
-        </div>
-      `;
 
-      const doorBtn = container.querySelector('#openDoorBtn');
-      const doorLeaf = container.querySelector('#doorLeaf');
+        <!-- ================= SLIDE 2 ================= -->
+        <section class="slide">
+            <div class="content">
 
-      doorBtn.addEventListener('click', () => {
-        sound.playChime(659.25);
-        doorLeaf.style.transform = "rotateY(-110deg)";
-        createFirework(window.innerWidth / 2, window.innerHeight / 2);
-        
-        doorBtn.disabled = true;
-        doorBtn.innerHTML = `<span>PORTAL UNLOCKED...</span>`;
-        
-        setTimeout(() => {
-          renderScene(2);
-        }, 1200);
-      });
-    }
+                <div class="kicker">The Main Character</div>
 
-    /* -------------------------------------------------------------------------
-       SCENE 2: BIRTHDAY BRAIN TEST
-       ------------------------------------------------------------------------- */
-    function buildScene2(container) {
-      container.innerHTML = `
-        <div class="text-center max-w-md w-full">
-          <p class="text-purple-400 text-xs font-bold uppercase tracking-widest mb-1">Security Clearance</p>
-          <h2 class="text-2xl sm:text-3xl font-bold mb-2">Quick Identity Check</h2>
-          <p class="text-slate-400 text-xs sm:text-sm mb-6">Govind, confirm your birthday reflexes with this equation:</p>
+                <h1 class="typing"
+                    data-text="Govind Sharma"></h1>
 
-          <div id="mathCard" class="glass-card rounded-2xl p-6 sm:p-8 mb-6 relative overflow-hidden">
-            <div class="text-4xl sm:text-5xl font-mono font-bold text-amber-300 tracking-wider mb-6">
-              2 + 2 = ?
+                <p class="subtitle">
+                    Yes, YOU. 👀
+                </p>
+
+                <p class="small">
+                    The person responsible for being 21 today.
+                </p>
+
             </div>
+        </section>
 
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <button data-val="2" class="answer-btn py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 font-bold text-lg transition-all">2</button>
-              <button data-val="3" class="answer-btn py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 font-bold text-lg transition-all">3</button>
-              <button data-val="4" class="answer-btn py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 font-bold text-lg transition-all text-amber-300">4</button>
-              <button data-val="5" class="answer-btn py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/50 hover:bg-white/10 font-bold text-lg transition-all">5<
+
+        <!-- ================= SLIDE 3 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="kicker">Officially</div>
+
+                <div class="number21">21</div>
+
+                <h2 style="font-size:clamp(25px,6vw,55px);">
+                    YEARS OLD
+                </h2>
+
+                <p class="subtitle">
+                    Congratulations... adulthood has officially entered the chat. 💀
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SLIDE 4 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="card">
+
+                    <div class="kicker">20 September 2026</div>
+
+                    <h2 class="typing"
+                        data-text="Happy 21st Birthday! 🎂"></h2>
+
+                    <p style="margin-top:20px;">
+                        21 years of existence.<br>
+                        Countless memories.<br>
+                        Unlimited bakchodi.
+                    </p>
+
+                    <p style="margin-top:25px;font-size:22px;">
+                        And somehow... you're still here. 😂
+                    </p>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SLIDE 5 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="kicker">Important Question</div>
+
+                <h1 class="typing"
+                    data-text="Are You Really 21?"></h1>
+
+                <div class="funny">
+
+                    <div class="funny-box">
+                        <span>🧠</span>
+                        <p>Age: 21</p>
+                    </div>
+
+                    <div class="funny-box">
+                        <span>🤡</span>
+                        <p>Maturity: Loading...</p>
+                    </div>
+
+                    <div class="funny-box">
+                        <span>💸</span>
+                        <p>Bank Balance: Don't Ask</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SLIDE 6 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="card">
+
+                    <div class="kicker">Scientific Research</div>
+
+                    <h2>21 Years of Govind</h2>
+
+                    <p class="typing"
+                        data-text="Scientists have confirmed that Govind has successfully survived 21 years without reading the terms and conditions."></p>
+
+                    <p style="margin-top:25px;font-size:28px;">
+                        🧪🔬😂
+                    </p>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SLIDE 7 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="kicker">Personality Report</div>
+
+                <h1>Govind.exe</h1>
+
+                <div class="funny">
+
+                    <div class="funny-box">
+                        <span>😎</span>
+                        <p>Coolness<br>99%</p>
+                    </div>
+
+                    <div class="funny-box">
+                        <span>😂</span>
+                        <p>Bakchodi<br>110%</p>
+                    </div>
+
+                    <div class="funny-box">
+                        <span>😴</span>
+                        <p>Productivity<br>Depends</p>
+                    </div>
+
+                </div>
+
+                <p class="subtitle typing"
+                   data-text="System status: Still functioning... somehow."></p>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SLIDE 8 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="kicker">Birthday Roast 🔥</div>
+
+                <div class="card">
+
+                    <h2 class="typing"
+                        data-text="Dear Govind..."></h2>
+
+                    <p style="margin-top:20px;">
+                        You're now 21.
+                    </p>
+
+                    <p style="margin-top:15px;">
+                        Which means you are officially old enough
+                        to make your own bad decisions.
+                    </p>
+
+                    <p style="margin-top:20px;font-size:25px;">
+                        Don't worry.<br>
+                        You've already been practicing. 😂
+                    </p>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SLIDE 9 ================= -->
+        <section class="slide">
+            <div class="content">
+
+                <div class="kicker">The Cake Has Arrived</div>
+
+                <div class="cake-wrap" id="cake">
+
+                    <div class="candle"></div>
+                    <div class="candle"></div>
+                    <div class="c
