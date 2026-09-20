@@ -140,7 +140,7 @@
 
   <!-- Audio Tracks -->
   <audio id="bg-audio" loop preload="none">
-    <source src="music.mp3" type="audio/mpeg" />
+    <source src="birthday.mp3" type="audio/mpeg" />
   </audio>
 
   <!-- Top Bar -->
@@ -234,7 +234,7 @@
         <span id="photo-tag" style="display: inline-block; padding: 4px 12px; border-radius: 16px; background: rgba(192, 132, 252, 0.2); border: 1px solid #c084fc; color: #fbcfe8; font-size: 12px; font-weight: bold; text-transform: uppercase;">Dedication</span>
         
         <div class="photo-stage">
-          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory[span_12](start_span)"[span_12](end_span) />
+          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory" />
         </div>
         
         <p id="photo-cap" style="font-size: 13px; font-weight: 600; color: #f1f5f9; min-height: 38px; line-height: 1.4;">White coat & stethoscope. Dedicated to greatness.</p>
@@ -376,9 +376,6 @@ Happy 21st Birthday, Govind! ❤️
   </footer>
 
   <script>
-    /* ====================================================================
-       SAFE AUDIO PLAYBACK (Zero freezes, unblocked DOM)
-       ==================================================================== */
     let isMuted = false;
 
     function playSound(file) {
@@ -386,4 +383,13 @@ Happy 21st Birthday, Govind! ❤️
       try {
         const a = new Audio(file);
         a.play().catch(() => {});
-      } ca
+      } catch (e) {}
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      const tag = document.getElementById('audio-tag');
+      const bg = document.getElementById('bg-audio');
+      if (isMuted) {
+        if (tag) tag.innerText = "🔇 Sound OFF";
+    
