@@ -216,25 +216,18 @@
     .pop-number {
       animation: zoomBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, .balloon-unit, .pop-number, .flame-on, .door-inner {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Dynamic Lighting Blobs -->
+  <!-- Background Lighting Blobs -->
   <div id="blob-1" class="glow-blob" style="width: 320px; height: 320px; background: #6b21a8; top: -60px; left: -60px;"></div>
   <div id="blob-2" class="glow-blob" style="width: 300px; height: 300px; background: #be185d; bottom: -60px; right: -60px;"></div>
 
-  <!-- Background Canvas for Visual Confetti & Fireworks -->
+  <!-- Background Visual Canvas -->
   <canvas id="fx-canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5;"></canvas>
 
-  <!-- Top Bar: Progress & Sound Switcher -->
+  <!-- Top Bar -->
   <header style="width: 100%; max-width: 380px; display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; z-index: 20;">
     <span id="chapter-tag" style="font-size: 11px; font-weight: 800; letter-spacing: 2px; color: #cbd5e1; background: rgba(255,255,255,0.08); padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);">
       ACT 01 / 11
@@ -331,7 +324,7 @@
         <span id="photo-tag" style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(192, 132, 252, 0.2); border: 1px solid #c084fc; color: #fbcfe8; font-size: 12px; font-weight: 800; text-transform: uppercase;">Dedication</span>
         
         <div class="photo-stage">
-          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory[span_2](start_span)"[span_2](end_span) />
+          <img id="photo-img" src="1000285479.jpg" alt="Govind Memory[span_10](start_span)"[span_10](end_span) />
         </div>
         
         <p id="photo-cap" style="font-size: 14px; font-weight: 600; color: #f1f5f9; min-height: 42px; line-height: 1.4;">White coat & stethoscope. Dedicated to greatness.</p>
@@ -381,3 +374,10 @@
           <button type="button" onclick="handleAgeQuiz(19, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">19</button>
           <button type="button" onclick="handleAgeQuiz(20, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">20</button>
           <button type="button" onclick="handleAgeQuiz(21, this)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px; border-radius: 14px; font-size: 22px; font-weight: 800; font-family: monospace; cursor: pointer;">21</button>
+        </div>
+        <p id="age-msg" style="color: #f43f5e; font-size: 14px; font-weight: 800; margin-top: 14px; min-height: 20px;"></p>
+      </div>
+    </div>
+
+    <!-- ================= SCENE 8: 21 CANDLES ================= -->
+    <div id="sc-8
