@@ -102,7 +102,6 @@
       cursor: pointer;
       box-shadow: 0 6px 15px rgba(0,0,0,0.4);
     }
-    /* BIG IMMERSIVE PHOTO FRAME */
     .photo-frame {
       width: 100%;
       height: 340px;
@@ -151,7 +150,7 @@
 </head>
 <body>
 
-  <!-- Background Music Audio -->
+  <!-- Audio -->
   <audio id="audio-player" loop preload="none">
     <source src="music.mp3" type="audio/mpeg" />
     <source src="birthday.mp3" type="audio/mpeg" />
@@ -219,7 +218,7 @@
       <p id="pop-reply" style="color: #fde047; font-size: 15px; font-weight: 800; min-height: 24px;"></p>
     </div>
 
-    <!-- SCENE 4: MEMORY LANE (BIG PHOTOS) -->
+    <!-- SCENE 4: MEMORY LANE -->
     <div id="sc-4" style="display: none;">
       <p style="color: #f59e0b; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Memory Lane</p>
       <h2 style="font-size: 24px; font-weight: 800; margin: 4px 0; color: #fff;">Moments Of Govind</h2>
@@ -228,7 +227,7 @@
         <span id="img-tag" style="display: inline-block; padding: 4px 14px; border-radius: 20px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.5); color: #fde047; font-size: 12px; font-weight: 800; text-transform: uppercase;">Dedication</span>
         
         <div class="photo-frame">
-          <img id="img-display" src="1000285479.jpg" alt="Memory[span_6](start_span)"[span_6](end_span) />
+          <img id="img-display" src="1000285479.jpg" alt="Memory[span_0](start_span)"[span_0](end_span) />
         </div>
         
         <p id="img-cap" style="font-size: 14px; font-weight: 600; color: #f1f5f9; min-height: 40px; line-height: 1.4;">Focused, dedicated, and working hard towards big ambitions.</p>
@@ -332,60 +331,55 @@ Happy 21st Birthday, Govind! ❤️
   </footer>
 
   <script>
-    /* -------------------------------------------------------------
-       AUDIO & CLICK SOUNDS ENGINE (Built-in synthesizer)
-       ------------------------------------------------------------- */
+    // Safe Audio Context
     var sfxCtx = null;
-    function playClickTone(freq, type, duration, vol) {
+    function playTone(freq, duration) {
       try {
-        if (!sfxCtx) sfxCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (sfxCtx && sfxCtx.state === 'suspended') sfxCtx.resume();
-        if (!sfxCtx) return;
+        var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!sfxCtx) sfxCtx = new AudioContextClass();
+        if (sfxCtx.state === 'suspended') sfxCtx.resume();
+
         var osc = sfxCtx.createOscillator();
         var gain = sfxCtx.createGain();
-        osc.type = type || 'sine';
-        osc.frequency.setValueAtTime(freq || 440, sfxCtx.currentTime);
-        gain.gain.setValueAtTime(vol || 0.15, sfxCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, sfxCtx.currentTime + (duration || 0.15));
+        var now = sfxCtx.currentTime;
+        var dur = duration || 0.12;
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq || 440, now);
+
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.0001, now + dur);
+
         osc.connect(gain);
         gain.connect(sfxCtx.destination);
-        osc.start();
-        osc.stop(sfxCtx.currentTime + (duration || 0.15));
-      } catch (e) {}
+
+        osc.start(now);
+        osc.stop(now + dur);
+      } catch (e) {
+        // Completely non-blocking
+      }
     }
 
-    function soundTap() { playClickTone(520, 'triangle', 0.1, 0.2); }
-    function soundPop() { playClickTone(750 + Math.random() * 250, 'triangle', 0.12, 0.25); }
-    function soundCorrect() {
-      playClickTone(523.25, 'sine', 0.12, 0.2);
-      setTimeout(function() { playClickTone(659.25, 'sine', 0.12, 0.2); }, 90);
-      setTimeout(function() { playClickTone(783.99, 'sine', 0.22, 0.25); }, 180);
-    }
-    function soundWrong() { playClickTone(220, 'sawtooth', 0.22, 0.15); }
-    function soundBlow() { playClickTone(320, 'triangle', 0.14, 0.12); }
-    function soundFanfare() {
-      playClickTone(440, 'triangle', 0.18, 0.22);
-      setTimeout(function() { playClickTone(554.37, 'triangle', 0.18, 0.22); }, 110);
-      setTimeout(function() { playClickTone(659.25, 'triangle', 0.18, 0.22); }, 220);
-      setTimeout(function() { playClickTone(880, 'triangle', 0.4, 0.26); }, 330);
-    }
-
-    // Direct scene switcher
+    // Direct scene switcher - SCREEN NAVIGATION OCCURS FIRST
     function goToStep(stepNumber) {
-      soundTap();
       for (var s = 1; s <= 8; s++) {
         var el = document.getElementById('sc-' + s);
         if (el) el.style.display = 'none';
       }
       var target = document.getElementById('sc-' + stepNumber);
       if (target) target.style.display = 'block';
-      
+
+      // Play click tone safely
+      playTone(520, 0.1);
+
       // Auto start music seamlessly on step transition
       try {
         var audio = document.getElementById('audio-player');
         if (audio && audio.paused) {
           audio.play().then(function() {
-            document.getElementById('audio-status').innerText = "🔊 Sound On";
+            var st = document.getElementById('audio-status');
+            if (st) st.innerText = "🔊 Sound On";
           }).catch(function() {});
         }
       } catch(e) {}
@@ -393,16 +387,18 @@ Happy 21st Birthday, Govind! ❤️
 
     // Audio button toggle
     function startOrMuteAudio() {
-      soundTap();
+      playTone(480, 0.08);
       var audio = document.getElementById('audio-player');
       if (!audio) return;
       if (audio.paused) {
         audio.play().then(function() {
-          document.getElementById('audio-status').innerText = "🔊 Sound On";
+          var st = document.getElementById('audio-status');
+          if (st) st.innerText = "🔊 Sound On";
         }).catch(function() {});
       } else {
         audio.pause();
-        document.getElementById('audio-status').innerText = "🔈 Sound Off";
+        var st = document.getElementById('audio-status');
+        if (st) st.innerText = "🔈 Sound Off";
       }
     }
 
@@ -410,14 +406,14 @@ Happy 21st Birthday, Govind! ❤️
     function checkAnswer(val, btn) {
       var reply = document.getElementById('math-reply');
       if (val === 4) {
-        soundCorrect();
+        playTone(660, 0.15);
         btn.style.background = "#10b981";
         btn.style.color = "#ffffff";
-        reply.innerText = "Correct! 🎈";
-        setTimeout(function() { goToStep(3); }, 500);
+        if (reply) reply.innerText = "Correct! 🎈";
+        setTimeout(function() { goToStep(3); }, 450);
       } else {
-        soundWrong();
-        reply.innerText = "Are you sure? 😂 Try again!";
+        playTone(220, 0.2);
+        if (reply) reply.innerText = "Are you sure? 😂 Try again!";
       }
     }
 
@@ -425,15 +421,15 @@ Happy 21st Birthday, Govind! ❤️
     var poppedTotal = 0;
     function popOne(btn, msg) {
       if (btn.style.opacity === '0') return;
-      soundPop();
+      playTone(720 + Math.random() * 200, 0.12);
       btn.style.opacity = '0';
       btn.style.pointerEvents = 'none';
       poppedTotal++;
-      document.getElementById('pop-reply').innerText = '"' + msg + '"';
+      var rep = document.getElementById('pop-reply');
+      if (rep) rep.innerText = '"' + msg + '"';
       if (poppedTotal >= 7) {
-        soundFanfare();
-        document.getElementById('pop-reply').innerText = "BALLOON MISSION COMPLETE 🎈";
-        setTimeout(function() { goToStep(4); }, 650);
+        if (rep) rep.innerText = "BALLOON MISSION COMPLETE 🎈";
+        setTimeout(function() { goToStep(4); }, 550);
       }
     }
 
@@ -444,4 +440,28 @@ Happy 21st Birthday, Govind! ❤️
       { img: "1000285478.jpg", tag: "Golden Sunset", cap: "Golden hour brotherhood. Standing together towards endless horizons." },
       { img: "1000285476.jpg", tag: "Festival Of Colors", cap: "Holi colors & endless laughter. Unbreakable bonds that last forever." },
       { img: "1000285477.jpg", tag: "Desi Roots", cap: "Simple moments and calm breezes in the countryside." },
- 
+      { img: "1000285590.png", tag: "Brothers For Life", cap: "Street smiles, big dreams, and unstoppable 21st energy." }
+    ];
+    var pIdx = 0;
+
+    function nextPhoto(step) {
+      playTone(550, 0.08);
+      pIdx = (pIdx + step + 6) % 6;
+      var cur = album[pIdx];
+      var tagEl = document.getElementById('img-tag');
+      var dispEl = document.getElementById('img-display');
+      var capEl = document.getElementById('img-cap');
+      var numEl = document.getElementById('img-num');
+
+      if (tagEl) tagEl.innerText = cur.tag;
+      if (dispEl) dispEl.src = cur.img;
+      if (capEl) capEl.innerText = cur.cap;
+      if (numEl) numEl.innerText = "0" + (pIdx + 1) + " / 06";
+    }
+
+    // Scene 5: Quiz
+    function checkAge(age, btn) {
+      var reply = document.getElementById('age-reply');
+      if (age === 21) {
+        playTone(660, 0.15);
+        btn.st
